@@ -19,8 +19,7 @@ public class Projet_Tennis
         }*/
         for (int i = 0; i<10; i++){
             Personne test = new Personne();
-            
-            System.out.println(test.genre + ":" + test);
+            //System.out.println(test.genre + " : " + test.nomNaissance + " --> " + test.nomCourant);
         }
     }
 }

@@ -24,7 +24,7 @@ public /*abstract*/ class Personne
     private final String nomNaissance;
     private final Date dateNaissance;
     private final String lieuNaissance;
-    public final Genre genre;
+    private final Genre genre;
     private String surnom;
     private String nomCourant;
     private String nationalite;
@@ -127,7 +127,13 @@ public /*abstract*/ class Personne
     
     public final void setNomCourant(String nom)
     {
-        this.nomCourant = nom;
+        if (genre == Genre.Femme && Math.random() < 0.15){
+            this.nomCourant = NOMS[(int) (Math.random() * NOMS.length)];
+        }
+        else
+        {
+            this.nomCourant = nom;
+        }
     }
     
     public final void setNom(String nom)
