@@ -23,6 +23,8 @@ public class Joueur extends Personne
         super();
         nbJoueur++;
         main = Main.DROITE;
+        setSponsor(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
+        setClassement(nbJoueur);
     }
     
     public final void setSponsor(Sponsor[] sponsor)
@@ -52,14 +54,7 @@ public class Joueur extends Personne
         Integer nbSponsor = this.sponsor.length + sponsor.length;
         Sponsor newSponsor[] = new Sponsor[nbSponsor];
         System.arraycopy(this.sponsor, 0, newSponsor, 0, this.sponsor.length - 1);
-        
-        for (Sponsor sponsor1 : newSponsor)
-        {
-            
-        }
         System.arraycopy(sponsor, 0, newSponsor, this.sponsor.length, sponsor.length);
-    
-        //newSponsor[nbSponsor - 1] = sponsor;
         
         setSponsor(newSponsor);
     }
@@ -111,32 +106,32 @@ public class Joueur extends Personne
         this.classement = classement;
     }
     
-    public void setEntraineur(String entraineur)
+    public void setEntraineur(Personne entraineur)
     {
-        //this.entraineur = entraineur;
+        this.entraineur = new Personne(entraineur);
     }
     
     public Main getMain()
     {
-        return(this.main);
+        return main;
     }
     
     public Sponsor[] getSponsor()
     {
-        return(this.sponsor);
+        return sponsor;
     }
     
     public Integer getClassement()
     {
-        return(this.classement);
+        return classement;
     }
     
-    /*public String getEntraineur()
+    public final Personne getEntraineur()
     {
-        return(this.entraineur);
-    }*/
+        return entraineur;
+    }
     
-    public void changementTenue()
+    public final void changementTenue()
     {
         parler("Je change de tenue !");
     }
