@@ -46,6 +46,23 @@ public /*abstract*/ class Personne
         setPoids(50 + (float) Math.random() * (100 - 50));
         dateNaissance = Date.dateAleatoire(new Date(1, 1, 1970), new Date(1, 1, 2000));
     }
+    public Personne(Personne personne)
+    {
+        genre = personne.getGenre();
+        nomNaissance = personne.getNomNaissance();
+        setNomCourant(personne.getNomCourant());
+        prenom = personne.getPrenom();
+        lieuNaissance = personne.getLieuNaissance();
+        setNationalite(personne.getNationalite());
+        setTaille(personne.getTaille());
+        setPoids(personne.getPoids());
+        dateNaissance = personne.getDateNaissance();
+    }
+    
+    public final Genre getGenre()
+    {
+        return genre;
+    }
     
     public final Integer getAge()
     {
@@ -85,6 +102,21 @@ public /*abstract*/ class Personne
     public final Float getPoids()
     {
         return poids;
+    }
+    
+    public final String getLieuNaissance()
+    {
+        return lieuNaissance;
+    }
+    
+    public final String getNationalite()
+    {
+        return nationalite;
+    }
+    
+    public final Date getDateNaissance()
+    {
+        return new Date(dateNaissance);
     }
     
     public final void setNationalite(Integer nationalite)
