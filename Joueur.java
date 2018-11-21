@@ -27,9 +27,10 @@ public class Joueur extends Personne
     
     public final void setSponsor(Sponsor[] sponsor)
     {
-        Integer nbSponsor = sponsor.length;
+        Sponsor[] sponsorWD = removeDouble(sponsor);
+        Integer nbSponsor = sponsorWD.length;
         this.sponsor = new Sponsor[nbSponsor];
-        System.arraycopy(sponsor, 0, this.sponsor, 0, nbSponsor);
+        System.arraycopy(sponsorWD, 0, this.sponsor, 0, nbSponsor);
     }
     public final void setSponsor(Sponsor sponsor)
     {
@@ -71,8 +72,38 @@ public class Joueur extends Personne
             for(Integer j = 0; j < i; j++)
             {
                 if(sponsor[i].equals(sponsor[j]))
+                {
+                    doublon = true;
+                    break;
+                }
+            }
+            if(!doublon)
+            {
+                nbSponsor++;
             }
         }
+        
+        Integer index = 0;
+        Sponsor[] newSponsor = new Sponsor[nbSponsor];
+        for(Integer i = 0; i < sponsor.length; i++)
+        {
+            Boolean doublon = false;
+            for(Integer j = 0; j < i; j++)
+            {
+                if(sponsor[i].equals(sponsor[j]))
+                {
+                    doublon = true;
+                    break;
+                }
+            }
+            if(!doublon)
+            {
+                newSponsor[index] = sponsor[i];
+                index++;
+            }
+        }
+        
+        return newSponsor;
     }
     
     public void setClassement(Integer classement)

@@ -12,7 +12,7 @@ package projet_tennis;
 public enum Sponsor
 {
     DECATHLON ("Decathlon"),
-    ECURIE_ZT ("Ecurie_ZT"),
+    ECURIE_ZT ("Ecurie ZT"),
     ACER ("Acer"),
     LDLC ("LDLC"),
     FEED ("Feed"),
