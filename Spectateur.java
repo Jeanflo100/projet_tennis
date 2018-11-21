@@ -1,8 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package projet_tennis;
 
-
-public class Spectateur {
-    
+/**
+ *
+ * @author HUBERT Gilles, TASSART Jean-Florian
+ */
+public class Spectateur
+{    
     public void applaudir(){
         System.out.println("CLAP ! CLAP ! CLAP !");
     }
@@ -18,5 +26,4 @@ public class Spectateur {
     public void dormir(){
         
     }
-    
 }
