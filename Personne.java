@@ -37,26 +37,32 @@ public /*abstract*/ class Personne
     public Personne()
     {
         genre = Genre.values()[(int) (Math.random() * Genre.values().length)];
-        nomNaissance = NOMS[(int) (Math.random() * NOMS.length)];
+        
         prenom = genre == Genre.Femme ? PRENOMS_F[(int) (Math.random() * PRENOMS_F.length)] : PRENOMS_H[(int) (Math.random() * PRENOMS_H.length)];
-        setNomCourant(nomNaissance); // Si c'est une fille, on choisit un nom au hasard. Si c'est un garçon, on remet le nom de naissance
+        nomNaissance = NOMS[(int) (Math.random() * NOMS.length)];
+        setNomCourant(nomNaissance);
+        
+        dateNaissance = Date.dateAleatoire(new Date(1, 1, 1970), new Date(1, 1, 2000));
         lieuNaissance = LIEUX[(int) (Math.random() * LIEUX.length)];
         setNationalite((int) (Math.random() * NATIONALITES.length));
+        
         setTaille(150 + (float) Math.random() * (200 - 150));
         setPoids(50 + (float) Math.random() * (100 - 50));
-        dateNaissance = Date.dateAleatoire(new Date(1, 1, 1970), new Date(1, 1, 2000));
     }
     public Personne(Personne personne)
     {
         genre = personne.getGenre();
+        
+        prenom = personne.getPrenom();
         nomNaissance = personne.getNomNaissance();
         setNomCourant(personne.getNomCourant());
-        prenom = personne.getPrenom();
+        
+        dateNaissance = personne.getDateNaissance();
         lieuNaissance = personne.getLieuNaissance();
         setNationalite(personne.getNationalite());
+        
         setTaille(personne.getTaille());
         setPoids(personne.getPoids());
-        dateNaissance = personne.getDateNaissance();
     }
     
     public final Genre getGenre()
@@ -159,7 +165,7 @@ public /*abstract*/ class Personne
     
     public final void setNomCourant(String nom)
     {
-        if (genre == Genre.Femme && Math.random() < 0.15){
+        if (getGenre() == Genre.Femme && Math.random() < 0.15){
             this.nomCourant = NOMS[(int) (Math.random() * NOMS.length)];
         }
         else

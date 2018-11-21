@@ -25,6 +25,7 @@ public class Joueur extends Personne
         main = Main.DROITE;
         setSponsor(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
         setClassement(nbJoueur);
+        setEntraineur(new Personne());
     }
     
     public final void setSponsor(Sponsor[] sponsor)
