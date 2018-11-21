@@ -11,6 +11,19 @@ package projet_tennis;
  */
 public enum Main
 {
-    DROITE,
-    GAUCHE;
+    DROITE ("droite"),
+    GAUCHE ("gauche");
+    
+    private final String main;
+    
+    Main(String main)
+    {
+        this.main = main;
+    }
+    
+    @Override
+    public final String toString()
+    {
+        return main;
+    }
 }

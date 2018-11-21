@@ -24,7 +24,7 @@ public /*abstract*/ class Personne
     private final String nomNaissance;
     private final Date dateNaissance;
     private final String lieuNaissance;
-    //private final Genre genre;
+    private final Genre genre;
     private String surnom;
     private String nomCourant;
     private String nationalite;
@@ -36,7 +36,7 @@ public /*abstract*/ class Personne
     
     public Personne()
     {
-        //genre = Genre.values()[(int) (Math.random() * Genre.values().length)];
+        genre = Genre.values()[(int) (Math.random() * Genre.values().length)];
         nomNaissance = NOMS[(int) (Math.random() * NOMS.length)];
         prenom = PRENOMS_F[(int) (Math.random() * PRENOMS_F.length)];
         setNomCourant(nomNaissance); // Si c'est une fille, on choisit un nom au hasard. Si c'est un garçon, on remet le nom de naissance

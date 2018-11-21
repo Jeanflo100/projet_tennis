@@ -11,6 +11,19 @@ package projet_tennis;
  */
 public enum Genre
 {
-    Homme,
-    Femme;
+    Homme ("hommme"),
+    Femme ("femme");
+    
+    private final String genre;
+    
+    Genre(String genre)
+    {
+        this.genre = genre;
+    }
+    
+    @Override
+    public final String toString()
+    {
+        return genre;
+    }
 }

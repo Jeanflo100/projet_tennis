@@ -11,10 +11,23 @@ package projet_tennis;
  */
 public enum Sponsor
 {
-    DECATHLON,
-    ECURIE_ZT,
-    ACER,
-    LDLC,
-    FEED,
-    REDBULL;
+    DECATHLON ("Decathlon"),
+    ECURIE_ZT ("Ecurie_ZT"),
+    ACER ("Acer"),
+    LDLC ("LDLC"),
+    FEED ("Feed"),
+    REDBULL ("RedBull");
+    
+    private final String sponsor;
+
+    Sponsor(String sponsor)
+    {
+        this.sponsor = sponsor;
+    }
+    
+    @Override
+    public final String toString()
+    {
+        return sponsor;
+    }
 }

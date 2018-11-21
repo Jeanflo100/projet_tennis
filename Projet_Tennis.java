@@ -13,6 +13,9 @@ public class Projet_Tennis
 {  
     public static void main(String[] args)
     {
-        
+        Sponsor test[] = new Sponsor[5];
+        for (Sponsor sponsor : test) {
+            System.out.println(sponsor);
+        }
     }
 }

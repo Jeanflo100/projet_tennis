@@ -11,12 +11,25 @@ package projet_tennis;
  */
 public enum Couleur
 {
-    ORANGE,
-    BLEU,
-    VERT,
-    VIOLET,
-    ROUGE,
-    JAUNE,
-    NOIR,
-    BLANC;
+    ORANGE ("orange"),
+    BLEU ("bleu"),
+    VERT ("vert"),
+    VIOLET ("violet"),
+    ROUGE ("rouge"),
+    JAUNE ("jaune"),
+    NOIR ("noir"),
+    BLANC ("blanc");
+    
+    private final String couleur;
+
+    Couleur(String couleur)
+    {
+        this.couleur = couleur;
+    }
+    
+    @Override
+    public final String toString()
+    {
+        return couleur;
+    }
 }

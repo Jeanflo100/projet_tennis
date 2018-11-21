@@ -26,18 +26,18 @@ public enum Mois
     
     private final String mois;
     
-    Mois (String mois)
+    Mois(String mois)
     {
         this.mois = mois;
     }
     
     @Override
-    public final String toString ()
+    public final String toString()
     {
         return mois;
     }
     
-    public final static Mois fromString (String name)
+    public final static Mois fromString(String name)
     {
         for(Mois value : values())
         {
