@@ -9,7 +9,7 @@ package projet_tennis;
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
-public /*abstract*/ class Personne
+public class Personne
 {
     // Constantes de la classe    
     
@@ -31,7 +31,7 @@ public /*abstract*/ class Personne
     private Float taille;
     private Float poids;
     private Date dateDeces;
-    //protected Couleur couleur;
+    private Couleur couleur;
     
     
     public Personne()
@@ -48,6 +48,7 @@ public /*abstract*/ class Personne
         
         setTaille(150 + (float) Math.random() * (200 - 150));
         setPoids(50 + (float) Math.random() * (100 - 50));
+        setCouleur(Couleur.values()[(int) (Math.random() * Couleur.values().length)]);
     }
     public Personne(Personne personne)
     {
@@ -110,6 +111,11 @@ public /*abstract*/ class Personne
         return poids;
     }
     
+    public final Couleur getCouleur()
+    {
+        return couleur;
+    }
+    
     public final String getLieuNaissance()
     {
         return lieuNaissance;
@@ -161,6 +167,11 @@ public /*abstract*/ class Personne
             return;
         }
         this.poids = poids;
+    }
+    
+    public final void setCouleur(Couleur couleur)
+    {
+        this.couleur = couleur;
     }
     
     public final void setNomCourant(String nom)
@@ -280,10 +291,4 @@ public /*abstract*/ class Personne
         NATIONALITES[4] = "Russe";
     }
     
-    public static void main(String[] args)
-    {
-        Personne test = new Personne();
-        System.out.println(test.dateNaissance);
-        System.out.println(test.getAge());
-    }
 }

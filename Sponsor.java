@@ -20,7 +20,7 @@ public enum Sponsor
     
     private final String sponsor;
 
-    Sponsor(String sponsor)
+    private Sponsor(String sponsor)
     {
         this.sponsor = sponsor;
     }

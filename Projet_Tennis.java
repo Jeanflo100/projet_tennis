@@ -20,6 +20,7 @@ public class Projet_Tennis
         for (int i = 0; i<10; i++){
             Personne test = new Personne();
             //System.out.println(test.genre + " : " + test.nomNaissance + " --> " + test.nomCourant);
+            //System.out.println(test.couleur);
         }
     }
 }

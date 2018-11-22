@@ -22,7 +22,7 @@ public enum Couleur
     
     private final String couleur;
 
-    Couleur(String couleur)
+    private Couleur(String couleur)
     {
         this.couleur = couleur;
     }

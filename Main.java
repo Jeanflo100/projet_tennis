@@ -16,7 +16,7 @@ public enum Main
     
     private final String main;
     
-    Main(String main)
+    private Main(String main)
     {
         this.main = main;
     }

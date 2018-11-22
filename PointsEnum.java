@@ -20,7 +20,7 @@ public enum PointsEnum
     
     private String point;
     
-    PointsEnum(String point)
+    private PointsEnum(String point)
     {
         this.point = point;
     }
