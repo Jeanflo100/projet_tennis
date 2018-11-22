@@ -16,13 +16,13 @@ public class Joueur extends Personne
     private final Main main;
     private Sponsor[] sponsor = new Sponsor[0];
     private Integer classement;
-    private Personne entraineur; // Voilà une raison qui justifie que l'on ne mette pas Personne en astrait :p
+    private Personne entraineur;
     
     public Joueur()
     {
         super();
         nbJoueur++;
-        main = Main.DROITE;
+        main = Main.values()[(int) ((Math.random() * Main.values().length)*0.7)];
         setSponsor(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
         setClassement(nbJoueur);
         setEntraineur(new Personne());

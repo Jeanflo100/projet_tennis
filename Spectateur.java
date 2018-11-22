@@ -9,8 +9,13 @@ package projet_tennis;
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
-public class Spectateur
+public class Spectateur extends Personne
 {    
+    public Spectateur()
+    {
+        super();
+    }
+    
     public void applaudir(){
         System.out.println("CLAP ! CLAP ! CLAP !");
     }
