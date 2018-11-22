@@ -64,6 +64,7 @@ public class Personne
         
         setTaille(personne.getTaille());
         setPoids(personne.getPoids());
+        setCouleur(personne.getCouleur());
     }
     
     public final Genre getGenre()
