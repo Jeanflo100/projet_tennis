@@ -20,8 +20,8 @@ public class Projet_Tennis
         for (int i = 0; i<10; i++){
             Personne test = new Personne();
             Joueur test2 = new Joueur();
-            //System.out.println(test.genre + " : " + test.nomNaissance + " --> " + test.nomCourant);
-            //System.out.println(test2.main);
+            System.out.println(test.getGenre() + " : " + test.getNomNaissance() + " --> " + test.getNomCourant());
+            System.out.println(test2.getMain());
         }
     }
 }
