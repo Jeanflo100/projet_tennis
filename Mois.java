@@ -26,7 +26,7 @@ public enum Mois
     
     private final String mois;
     
-    Mois(String mois)
+    private Mois(String mois)
     {
         this.mois = mois;
     }
@@ -41,12 +41,12 @@ public enum Mois
     {
         for(Mois value : values())
         {
-            if(name.equals(value.toString()))
+            if(name.toLowerCase().equals(value.toString().toLowerCase()))
             {
                 return value;
             }
         }
-        System.err.println("La chaine de caractère ne correspond à aucun mois");
+        System.err.println("La chaine de caractère ne correspond à aucun mois.");
         return null;
     }
 }

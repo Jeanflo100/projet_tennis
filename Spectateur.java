@@ -9,7 +9,7 @@ package projet_tennis;
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
-public class Spectateur extends Personne
+public final class Spectateur extends Personne
 {    
     public Spectateur()
     {

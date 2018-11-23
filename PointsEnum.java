@@ -18,7 +18,7 @@ public enum PointsEnum
     AVANTAGE ("AV"),
     GAGNE ("Gagné");
     
-    private String point;
+    private final String point;
     
     private PointsEnum(String point)
     {
@@ -29,5 +29,18 @@ public enum PointsEnum
     public final String toString()
     {
         return point;
+    }
+    
+    public final static PointsEnum fromString(String name)
+    {
+        for(PointsEnum value : values())
+        {
+            if(name.toLowerCase().equals(value.toString().toLowerCase()))
+            {
+                return value;
+            }
+        }
+        System.err.println("La chaine de caractère ne correspond à aucune point.");
+        return null;
     }
 }

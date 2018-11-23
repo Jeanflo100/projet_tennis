@@ -18,6 +18,7 @@ public class Personne
     private static final String[] NOMS;
     private static final String[] LIEUX;
     private static final String[] NATIONALITES;
+    private static Personne lastSpeaker;
     
     
     private final String prenom;
@@ -39,7 +40,7 @@ public class Personne
         genre = Genre.values()[(int) (Math.random() * Genre.values().length)];
         
         prenom = genre == Genre.Femme ? PRENOMS_F[(int) (Math.random() * PRENOMS_F.length)] : PRENOMS_H[(int) (Math.random() * PRENOMS_H.length)];
-        nomNaissance = NOMS[(int) (Math.random() * NOMS.length)];
+        nomNaissance = NOMS[(int) (Math.random() * NOMS.length)].toUpperCase();
         setNomCourant(nomNaissance);
         
         dateNaissance = Date.dateAleatoire(new Date(1, 1, 1970), new Date(1, 1, 2000));
@@ -89,12 +90,12 @@ public class Personne
     
     public final String getNomNaissance()
     {
-        return nomNaissance;
+        return nomNaissance.toUpperCase();
     }
     
     public final String getNomCourant()
     {
-        return nomCourant;
+        return nomCourant.toUpperCase();
     }
     
     public final String getNom()
@@ -178,17 +179,17 @@ public class Personne
     public final void setNomCourant(String nom)
     {
         if (getGenre() == Genre.Femme && Math.random() < 0.15){
-            this.nomCourant = NOMS[(int) (Math.random() * NOMS.length)];
+            this.nomCourant = NOMS[(int) (Math.random() * NOMS.length)].toUpperCase();
         }
         else
         {
-            this.nomCourant = nom;
+            this.nomCourant = nom.toUpperCase();
         }
     }
     
     public final void setNom(String nom)
     {
-        setNomCourant(nom);
+        setNomCourant(nom.toUpperCase());
     }
     
     public final boolean isAlive()
@@ -241,15 +242,20 @@ public class Personne
         parler(this, texte);
     }
     
-    public final void parler(Object identite, Object texte)
+    private final void parler(Object identite, Object texte)
     {
-        System.out.println(identite.toString() + " :");
+        if(lastSpeaker != null && !lastSpeaker.toString().equals(this.toString()))
+        {
+            System.out.println(identite.toString() + " :");
+        }
         System.out.println("\t" + texte.toString());
+        lastSpeaker = new Personne(this);
     }
     
+    @Override
     public String toString()
     {
-        return getNom().toUpperCase() + " " + getPrenom();
+        return getNom() + " " + getPrenom();
     }
     
     static

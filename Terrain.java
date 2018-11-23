@@ -28,4 +28,17 @@ public enum Terrain
     {
         return terrain;
     }
+    
+    public final static Terrain fromString(String name)
+    {
+        for(Terrain value : values())
+        {
+            if(name.toLowerCase().equals(value.toString().toLowerCase()))
+            {
+                return value;
+            }
+        }
+        System.err.println("La chaine de caractère ne correspond à aucun Terrain.");
+        return null;
+    }
 }

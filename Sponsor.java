@@ -30,4 +30,17 @@ public enum Sponsor
     {
         return sponsor;
     }
+    
+    public final static Sponsor fromString(String name)
+    {
+        for(Sponsor value : values())
+        {
+            if(name.toLowerCase().equals(value.toString().toLowerCase()))
+            {
+                return value;
+            }
+        }
+        System.err.println("La chaine de caractère ne correspond à aucun sponsor.");
+        return null;
+    }
 }

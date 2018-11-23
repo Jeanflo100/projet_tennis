@@ -32,4 +32,17 @@ public enum Couleur
     {
         return couleur;
     }
+    
+    public final static Couleur fromString(String name)
+    {
+        for(Couleur value : values())
+        {
+            if(name.toLowerCase().equals(value.toString().toLowerCase()))
+            {
+                return value;
+            }
+        }
+        System.err.println("La chaine de caractère ne correspond à aucune couleur.");
+        return null;
+    }
 }

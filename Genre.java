@@ -26,4 +26,26 @@ public enum Genre
     {
         return genre;
     }
+    
+    public final static Genre fromString(String name)
+    {
+        if(name.toLowerCase().equals("H"))
+        {
+            name = "homme";
+        }
+        else if(name.toLowerCase().equals("f"))
+        {
+            name = "femme";
+        }
+        
+        for(Genre value : values())
+        {
+            if(name.toLowerCase().equals(value.toString().toLowerCase()))
+            {
+                return value;
+            }
+        }
+        System.err.println("La chaine de caractère ne correspond à aucun genre.");
+        return null;
+    }
 }

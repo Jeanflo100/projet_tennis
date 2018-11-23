@@ -11,7 +11,7 @@ package projet_tennis;
  */
 public final class Jeu
 {
-    Score score = new Score<>(new Points(), new Points());
+    private final Score<Points> score = new Score<>(new Points(), new Points());
     private final Joueur serveur;
     private final Joueur receveur;
     private final Arbitre arbitre;
@@ -26,11 +26,26 @@ public final class Jeu
     public final void jouer()
     {
         arbitre.ennoncerServeur(serveur);
-        echange();
+        while(!score.get(1).get().equals(PointsEnum.GAGNE) && !score.get(2).get().equals(PointsEnum.GAGNE))
+        {
+            echange();
+        }
+        arbitre.ennoncerScore(score);
     }
     
     public final void echange()
     {
         arbitre.ennoncerScore(score);
+        final Float alea = (float) Math.random();
+        if (alea < 0.5)
+        {
+            arbitre.parler("Point : " + serveur.getNom());
+            Score.incremente(score, 1);
+        }
+        else
+        {
+            arbitre.parler("Point : " + receveur.getNom());
+            Score.incremente(score, 2);
+        }
     }
 }

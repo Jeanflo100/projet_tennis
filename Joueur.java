@@ -9,7 +9,7 @@ package projet_tennis;
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
-public class Joueur extends Personne
+public final class Joueur extends Personne
 {
     private static Integer nbJoueur = 0;
     
@@ -138,8 +138,8 @@ public class Joueur extends Personne
     }
     
     @Override
-    public final void parler(Object texte)
+    public final String toString()
     {
-        parler("Joueur " + getNom().toUpperCase(), texte);
+        return "Joueur " + getNom();
     }
 }

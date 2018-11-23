@@ -13,12 +13,12 @@ public final class Points
 {
     private PointsEnum valeur = PointsEnum.ZERO;
     
-    private final void set(PointsEnum point)
+    public final void set(PointsEnum point)
     {
         valeur = point;
     }
     
-    private final PointsEnum get()
+    public final PointsEnum get()
     {
         return valeur;
     }

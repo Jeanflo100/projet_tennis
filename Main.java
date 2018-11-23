@@ -26,4 +26,17 @@ public enum Main
     {
         return main;
     }
+    
+    public final static Main fromString(String name)
+    {
+        for(Main value : values())
+        {
+            if(name.toLowerCase().equals(value.toString().toLowerCase()))
+            {
+                return value;
+            }
+        }
+        System.err.println("La chaine de caractère ne correspond à aucune main.");
+        return null;
+    }
 }

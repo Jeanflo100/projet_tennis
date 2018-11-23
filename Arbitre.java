@@ -34,8 +34,8 @@ public final class Arbitre extends Personne
     }
     
     @Override
-    public final void parler(Object texte)
+    public String toString()
     {
-        parler("Arbitre " + getNom().toUpperCase(), texte);
+        return "Arbitre " + getNom();
     }
 }
