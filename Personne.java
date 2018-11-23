@@ -18,9 +18,11 @@ public class Personne
     private static final String[] NOMS;
     private static final String[] LIEUX;
     private static final String[] NATIONALITES;
+    private static Integer nbPersonne = 0;
     private static Personne lastSpeaker;
     
     
+    private final Integer ID;
     private final String prenom;
     private final String nomNaissance;
     private final Date dateNaissance;
@@ -37,6 +39,8 @@ public class Personne
     
     public Personne()
     {
+        incrementeNbPersonne();
+        ID = getNbPersonne();
         genre = Genre.values()[(int) (Math.random() * Genre.values().length)];
         
         prenom = genre == Genre.Femme ? PRENOMS_F[(int) (Math.random() * PRENOMS_F.length)] : PRENOMS_H[(int) (Math.random() * PRENOMS_H.length)];
@@ -53,6 +57,7 @@ public class Personne
     }
     public Personne(Personne personne)
     {
+        ID = personne.getID();
         genre = personne.getGenre();
         
         prenom = personne.getPrenom();
@@ -66,6 +71,16 @@ public class Personne
         setTaille(personne.getTaille());
         setPoids(personne.getPoids());
         setCouleur(personne.getCouleur());
+    }
+    
+    public static final Integer getNbPersonne()
+    {
+        return nbPersonne;
+    }
+    
+    public final Integer getID()
+    {
+        return ID;
     }
     
     public final Genre getGenre()
@@ -192,6 +207,11 @@ public class Personne
         setNomCourant(nom.toUpperCase());
     }
     
+    private static final void incrementeNbPersonne()
+    {
+        nbPersonne = getNbPersonne() + 1;
+    }
+    
     public final boolean isAlive()
     {
         return dateDeces == null;
@@ -244,11 +264,13 @@ public class Personne
     
     private final void parler(Object identite, Object texte)
     {
-        if(lastSpeaker != null && !lastSpeaker.toString().equals(this.toString()))
+        if(lastSpeaker == null || !lastSpeaker.getID().equals(this.getID()))
         {
             System.out.println(identite.toString() + " :");
         }
+        
         System.out.println("\t" + texte.toString());
+        
         lastSpeaker = new Personne(this);
     }
     
