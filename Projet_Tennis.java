@@ -23,6 +23,7 @@ public class Projet_Tennis
         for (Sponsor sponsor : test) {
             System.out.println(sponsor);
         }
+        
         for (int i = 0; i<10; i++){
             Personne test = new Personne();
             Joueur test2 = new Joueur();

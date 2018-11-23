@@ -148,6 +148,11 @@ public class Personne
         return new Date(dateNaissance);
     }
     
+    public static final Personne getLastSpeaker()
+    {
+        return new Personne(lastSpeaker);
+    }
+    
     public final void setNationalite(Integer nationalite)
     {
         this.nationalite = NATIONALITES[nationalite];
@@ -207,6 +212,11 @@ public class Personne
         setNomCourant(nom.toUpperCase());
     }
     
+    private static final void setLastSpeaker(Personne personne)
+    {
+        lastSpeaker = new Personne(personne);
+    }
+    
     private static final void incrementeNbPersonne()
     {
         nbPersonne = getNbPersonne() + 1;
@@ -264,14 +274,14 @@ public class Personne
     
     private final void parler(Object identite, Object texte)
     {
-        if(lastSpeaker == null || !lastSpeaker.getID().equals(this.getID()))
+        if(getLastSpeaker() == null || !getLastSpeaker().getID().equals(this.getID()))
         {
             System.out.println(identite.toString() + " :");
         }
         
         System.out.println("\t" + texte.toString());
         
-        lastSpeaker = new Personne(this);
+        setLastSpeaker(new Personne(this));
     }
     
     @Override
