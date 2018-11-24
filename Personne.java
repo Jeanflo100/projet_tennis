@@ -18,9 +18,9 @@ public class Personne
 {
     // Constantes de la classe    
     
-    private static final Integer nbPrenoms = initNbPrenoms();
-    private static final Integer nbNoms = initNbNoms();
-    private static final Integer nbVilles = initNbVilles();
+    private static final Integer NB_PRENOMS = initNbPrenoms();
+    private static final Integer NB_NOMS = initNbNoms();
+    private static final Integer NB_VILLES = initNbVilles();
     private static Integer nbPersonne = 0;
     private static Personne lastSpeaker;
     
@@ -276,7 +276,7 @@ public class Personne
                 InputStream flux = new FileInputStream("src\\projet_tennis\\Prenoms.txt"); 
                 InputStreamReader lecture = new InputStreamReader(flux);
                 BufferedReader buff = new BufferedReader(lecture);
-                nb_aleatoire = (int) (Math.random() * nbPrenoms);
+                nb_aleatoire = (int) (Math.random() * NB_PRENOMS);
                 ligne = 0;
                 while (ligne < nb_aleatoire)
                 {
@@ -332,7 +332,7 @@ public class Personne
             InputStream flux = new FileInputStream("src\\projet_tennis\\Noms.txt"); 
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            int nb_aleatoire = (int) (Math.random() * nbNoms);
+            int nb_aleatoire = (int) (Math.random() * NB_NOMS);
             int i = 0;
             String nom = "";
             char caractere;
@@ -359,7 +359,7 @@ public class Personne
             InputStream flux = new FileInputStream("src\\projet_tennis\\Villes.txt"); 
             InputStreamReader lecture = new InputStreamReader(flux);
             BufferedReader buff = new BufferedReader(lecture);
-            int nb_aleatoire = (int) (Math.random() * nbVilles);
+            int nb_aleatoire = (int) (Math.random() * NB_VILLES);
             int i = 0;
             String ville = "";
             char caractere;

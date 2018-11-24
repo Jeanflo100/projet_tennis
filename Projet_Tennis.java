@@ -36,19 +36,14 @@ public class Projet_Tennis
         
         Joueur joueur1 = new Joueur();
         Joueur joueur2 = new Joueur();
-        Joueur joueur3 = new Joueur();
+        Arbitre arbitre = new Arbitre();
         
         System.out.println(joueur1 + " " + joueur1.getID());
         System.out.println(joueur2 + " " + joueur2.getID());
-        System.out.println(joueur3 + " " + joueur3.getID());
+        System.out.println(arbitre + " " + arbitre.getID());
+        System.out.println();
         
-        joueur2.setPoints(10);
-        joueur1.setPoints(20);
-        
-        Joueur[] classement = Joueur.getClassement();
-        for(Integer i = 0; i < classement.length; i++)
-        {
-            System.out.println(classement[i].getRang() + "\t" + classement[i].getPoints() + "\t" + classement[i].getID() + "\t" + classement[i] + "\t");
-        }
+        Jeu test = new Jeu(joueur1, joueur2, arbitre);
+        test.jouer();
     }
 }

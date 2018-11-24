@@ -40,7 +40,7 @@ public final class Points
                 final Integer comparaison = adversaire.get().compareTo(PointsEnum.QUARANTE);
                 if(comparaison < 0)
                 {
-                    set(PointsEnum.GAGNE);
+                    set(PointsEnum.JEU);
                 }
                 else if(comparaison == 0)
                 {
@@ -52,9 +52,9 @@ public final class Points
                 }
                 break;
             case AVANTAGE:
-                set(PointsEnum.GAGNE);
+                set(PointsEnum.JEU);
                 break;
-            case GAGNE:
+            case JEU:
                 System.err.println("Le joueur a déjà gagné.");
                 break;
             default:
@@ -82,7 +82,7 @@ public final class Points
             case AVANTAGE:
                 set(PointsEnum.QUARANTE);
                 break;
-            case GAGNE:
+            case JEU:
                 final Integer comparaison = adversaire.get().compareTo(PointsEnum.QUARANTE);
                 if (comparaison < 0)
                 {

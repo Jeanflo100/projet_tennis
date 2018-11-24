@@ -11,12 +11,12 @@ package projet_tennis;
  */
 public enum PointsEnum
 {
-    ZERO ("0"),
+    ZERO ("Zéro"),
     QUINZE ("15"),
     TRENTE ("30"),
     QUARANTE ("40"),
-    AVANTAGE ("AV"),
-    GAGNE ("Gagné");
+    AVANTAGE ("Avantage"),
+    JEU ("Jeu");
     
     private final String point;
     

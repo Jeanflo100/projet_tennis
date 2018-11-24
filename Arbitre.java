@@ -10,7 +10,7 @@ package projet_tennis;
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
 public final class Arbitre extends Personne
-{
+{    
     public Arbitre()
     {
         super();
@@ -19,10 +19,6 @@ public final class Arbitre extends Personne
     public final void ennoncerServeur(Joueur joueur)
     {
         parler("Service : " + joueur.getNom());
-    }
-    public final void ennoncerScore(Score score)
-    {
-        parler(score);
     }
     public final void signalerFaute()
     {
