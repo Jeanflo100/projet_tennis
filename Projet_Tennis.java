@@ -5,8 +5,6 @@
  */
 package projet_tennis;
 
-import java.util.HashSet;
-
 /**
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
