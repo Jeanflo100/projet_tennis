@@ -5,111 +5,91 @@
  */
 package projet_tennis;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
+
 /**
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
 public final class Joueur extends Personne
 {
-    private static Integer nbJoueur = 0;
+    private static Joueur[] classement = new Joueur[0];
     
     private final Main main;
-    private Sponsor[] sponsor = new Sponsor[0];
-    private Integer classement;
+    private Integer points = 0;
+    private HashSet sponsors = new HashSet();
     private Personne entraineur;
     
     public Joueur()
     {
         super();
-        nbJoueur++;
         main = Main.values()[(int) ((Math.random() * Main.values().length)*0.7)];
-        setSponsor(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
-        setClassement(nbJoueur);
+        setSponsors(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
         setEntraineur(new Personne());
+        setInClassement();
+    }
+    public Joueur(Joueur joueur)
+    {
+        super(joueur);
+        main = joueur.getMain();
+        setSponsors(joueur.getSponsors());
+        setEntraineur(joueur.getEntraineur());
+        points = joueur.getPoints();
     }
     
-    public final void setSponsor(Sponsor[] sponsor)
+    public final void setSponsors(Sponsor sponsor)
     {
-        Sponsor[] sponsorWD = removeDouble(sponsor);
-        Integer nbSponsor = sponsorWD.length;
-        this.sponsor = new Sponsor[nbSponsor];
-        System.arraycopy(sponsorWD, 0, this.sponsor, 0, nbSponsor);
+        this.sponsors.add(sponsor);
     }
-    public final void setSponsor(Sponsor sponsor)
+    
+    public final void setSponsors(HashSet sponsors)
     {
-        this.sponsor = new Sponsor[1];
-        this.sponsor[0] = sponsor;
+        sponsors.forEach((object) -> {
+            this.sponsors.add(object);
+        });
     }
-    public final void addSponsor(Sponsor sponsor)
+    
+    public final void setSponsors(Sponsor[] sponsors)
     {
-        Integer nbSponsor = this.sponsor.length + 1;
-        Sponsor newSponsor[] = new Sponsor[nbSponsor];
-        System.arraycopy(this.sponsor, 0, newSponsor, 0, nbSponsor - 1);
-        
-        newSponsor[nbSponsor - 1] = sponsor;
-        
-        setSponsor(newSponsor);
+        this.sponsors.addAll(Arrays.asList(sponsors));
     }
-    public final void addSponsor(Sponsor[] sponsor)
+    
+    public final void setPoints(Integer points)
     {
-        Integer nbSponsor = this.sponsor.length + sponsor.length;
-        Sponsor newSponsor[] = new Sponsor[nbSponsor];
-        System.arraycopy(this.sponsor, 0, newSponsor, 0, this.sponsor.length - 1);
-        System.arraycopy(sponsor, 0, newSponsor, this.sponsor.length, sponsor.length);
-        
-        setSponsor(newSponsor);
-    }
-    public final Sponsor[] removeDouble(Sponsor[] sponsor)
-    {
-        Integer nbSponsor = 0;
-        for(Integer i = 0; i < sponsor.length; i++)
+        Integer index = getRang() - 1;
+        this.points += points;
+        while(!getID().equals(classement[index].getID()))
         {
-            Boolean doublon = false;
-            for(Integer j = 0; j < i; j++)
-            {
-                if(sponsor[i].equals(sponsor[j]))
-                {
-                    doublon = true;
-                    break;
-                }
-            }
-            if(!doublon)
-            {
-                nbSponsor++;
-            }
+            index++;
         }
-        
-        Integer index = 0;
-        Sponsor[] newSponsor = new Sponsor[nbSponsor];
-        for(Integer i = 0; i < sponsor.length; i++)
-        {
-            Boolean doublon = false;
-            for(Integer j = 0; j < i; j++)
-            {
-                if(sponsor[i].equals(sponsor[j]))
-                {
-                    doublon = true;
-                    break;
-                }
-            }
-            if(!doublon)
-            {
-                newSponsor[index] = sponsor[i];
-                index++;
-            }
-        }
-        
-        return newSponsor;
+        classement[index] = new Joueur(this);
+        Arrays.sort(classement, new JoueurComparator());
     }
     
-    public void setClassement(Integer classement)
-    {
-        this.classement = classement;
-    }
-    
-    public void setEntraineur(Personne entraineur)
+    public final void setEntraineur(Personne entraineur)
     {
         this.entraineur = new Personne(entraineur);
+    }
+    
+    private final void setInClassement()
+    {
+        Joueur[] classementTmp = new Joueur[getClassement().length];
+        System.arraycopy(getClassement(), 0, classementTmp, 0, classement.length);
+        
+        classement = new Joueur[classementTmp.length + 1];
+        System.arraycopy(classementTmp, 0, classement, 0, classementTmp.length);
+        classement[classement.length - 1] = new Joueur(this);
+        
+        Arrays.sort(classement, new JoueurComparator());
+    }
+    
+    public static final Joueur[] getClassement()
+    {
+        Joueur[] classementTmp = new Joueur[classement.length];
+        System.arraycopy(classement, 0, classementTmp, 0, classement.length);
+        return classementTmp;
     }
     
     public Main getMain()
@@ -117,19 +97,54 @@ public final class Joueur extends Personne
         return main;
     }
     
-    public Sponsor[] getSponsor()
+    public Sponsor[] getSponsors()
     {
-        return sponsor;
+        Sponsor[] sponsors = new Sponsor[this.sponsors.size()];
+        Integer index = 0;
+        for (Object sponsor : this.sponsors)
+        {
+            sponsors[index] = (Sponsor)sponsor;
+            index++;
+        }
+        return sponsors;
     }
     
-    public Integer getClassement()
+    public final Integer getPoints()
     {
-        return classement;
+        return points;
     }
     
     public final Personne getEntraineur()
     {
         return entraineur;
+    }
+    
+    public final Integer getRang()
+    {
+        Integer index = 0;
+        while(index < getClassement().length)
+        {
+            if(getID().equals(getClassement()[index].getID()))
+            {
+                break;
+            }
+            index++;
+        }
+        if(index == getClassement().length)
+        {
+            System.err.println("Ce joueur n'est pas dans le classement.");
+            return 0;
+        }
+        if(index != 0 && getPoints().equals(getClassement()[index - 1].getPoints()))
+        {
+            return getClassement()[index-1].getRang();
+        }
+        return index + 1;
+    }
+    
+    public static final Integer getNbJoueur()
+    {
+        return getClassement().length;
     }
     
     public final void changementTenue()
