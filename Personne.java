@@ -150,7 +150,7 @@ public class Personne
     
     public static final Personne getLastSpeaker()
     {
-        return new Personne(lastSpeaker);
+        return lastSpeaker == null ? null : new Personne(lastSpeaker);
     }
     
     public final void setNationalite(Integer nationalite)

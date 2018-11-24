@@ -33,7 +33,7 @@ public class Projet_Tennis
         */
         
         // Gillou
-        /*
+        
         Joueur joueur1 = new Joueur();
         Joueur joueur2 = new Joueur();
         Arbitre arbitre = new Arbitre();
@@ -42,6 +42,6 @@ public class Projet_Tennis
         Jeu test = new Jeu(joueur1, joueur2, arbitre);
         
         test.jouer();
-        */
+        
     }
 }
