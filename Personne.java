@@ -5,6 +5,11 @@
  */
 package projet_tennis;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 /**
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
@@ -13,13 +18,12 @@ public class Personne
 {
     // Constantes de la classe    
     
-    private static final String[] PRENOMS_H;
-    private static final String[] PRENOMS_F;
-    private static final String[] NOMS;
-    private static final String[] LIEUX;
-    private static final String[] NATIONALITES;
+    private static final Integer nbPrenoms = initNbPrenoms();
+    private static final Integer nbNoms = initNbNoms();
+    private static final Integer nbVilles = initNbVilles();
     private static Integer nbPersonne = 0;
     private static Personne lastSpeaker;
+    
     
     
     private final Integer ID;
@@ -43,18 +47,18 @@ public class Personne
         ID = getNbPersonne();
         genre = Genre.values()[(int) (Math.random() * Genre.values().length)];
         
-        prenom = genre == Genre.Femme ? PRENOMS_F[(int) (Math.random() * PRENOMS_F.length)] : PRENOMS_H[(int) (Math.random() * PRENOMS_H.length)];
-        nomNaissance = NOMS[(int) (Math.random() * NOMS.length)].toUpperCase();
+        prenom = generationPrenom();        // Générera aussi la nationalité
+        nomNaissance = generationNom();
         setNomCourant(nomNaissance);
         
         dateNaissance = Date.dateAleatoire(new Date(1, 1, 1970), new Date(1, 1, 2000));
-        lieuNaissance = LIEUX[(int) (Math.random() * LIEUX.length)];
-        setNationalite((int) (Math.random() * NATIONALITES.length));
+        lieuNaissance = generationVille();
         
         setTaille(150 + (float) Math.random() * (200 - 150));
         setPoids(50 + (float) Math.random() * (100 - 50));
-        setCouleur(Couleur.values()[(int) (Math.random() * Couleur.values().length)]);
+        setCouleur(Couleur.values()[(int) (Math.random() * Couleur.values().length)]); 
     }
+    
     public Personne(Personne personne)
     {
         ID = personne.getID();
@@ -153,22 +157,9 @@ public class Personne
         return lastSpeaker == null ? null : new Personne(lastSpeaker);
     }
     
-    public final void setNationalite(Integer nationalite)
-    {
-        this.nationalite = NATIONALITES[nationalite];
-    }
-    
     public final void setNationalite(String nationalite)
     {
-        for(String string : NATIONALITES)
-        {
-            if(string.equals(nationalite))
-            {
-                this.nationalite = string;
-                return;
-            }
-        }
-        setNationalite((int) (Math.random() * NATIONALITES.length));
+        this.nationalite = nationalite;
     }
     
     public final void setTaille(Float taille)
@@ -199,17 +190,195 @@ public class Personne
     public final void setNomCourant(String nom)
     {
         if (getGenre() == Genre.Femme && Math.random() < 0.15){
-            this.nomCourant = NOMS[(int) (Math.random() * NOMS.length)].toUpperCase();
+            this.nomCourant = generationNom();
         }
         else
         {
-            this.nomCourant = nom.toUpperCase();
+            this.nomCourant = nom;
         }
     }
     
     public final void setNom(String nom)
     {
         setNomCourant(nom.toUpperCase());
+    }
+    
+    private static final Integer initNbPrenoms(){
+        try{
+            InputStream flux = new FileInputStream("src\\projet_tennis\\Prenoms.txt"); 
+            InputStreamReader lecture = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(lecture);
+            int i = 0;
+            while (buff.readLine() != null)
+            {
+                i++;
+            }
+            buff.close();
+            return(i);
+        }		
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+        return(null);
+    }
+    
+    private static final Integer initNbNoms(){
+        try{
+            InputStream flux = new FileInputStream("src\\projet_tennis\\Noms.txt"); 
+            InputStreamReader lecture = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(lecture);
+            int i = 0;
+            while (buff.readLine() != null)
+            {
+                i++;
+            }
+            buff.close();
+            return(i);
+        }		
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+        return(null);
+    }
+    
+    private static final Integer initNbVilles(){
+        try{
+            InputStream flux = new FileInputStream("src\\projet_tennis\\Villes.txt"); 
+            InputStreamReader lecture = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(lecture);
+            int i = 0;
+            while (buff.readLine() != null)
+            {
+                i++;
+            }
+            buff.close();
+            return(i);
+        }		
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+        return(null);
+    }
+    
+    private final String generationPrenom(){
+        try{
+            String terme = "";
+            String prenom;
+            Genre genre;
+            String nationalite;
+            int nb_aleatoire;
+            int ligne;
+            char caractere;
+            do{
+                InputStream flux = new FileInputStream("src\\projet_tennis\\Prenoms.txt"); 
+                InputStreamReader lecture = new InputStreamReader(flux);
+                BufferedReader buff = new BufferedReader(lecture);
+                nb_aleatoire = (int) (Math.random() * nbPrenoms);
+                ligne = 0;
+                while (ligne < nb_aleatoire)
+                {
+                    buff.readLine();
+                    ligne++;
+                }
+                terme = "";
+                while ((caractere = (char) buff.read()) != '\t'){
+                    terme += caractere;
+                }
+                prenom = terme;
+                terme = "";
+                while ((caractere = (char) buff.read()) == '\t'){
+                    continue;
+                }
+                terme += caractere;
+                while ((caractere = (char) buff.read()) != '\t'){
+                    terme += caractere;
+                }
+                switch (terme){
+                    case "m": genre = Genre.Homme;break;
+                    case "f": genre = Genre.Femme;break;
+                    default: genre = null;
+                }
+                terme = "";
+                while ((caractere = (char) buff.read()) == '\t'){
+                    continue;
+                }
+                terme += caractere;
+                while ((caractere = (char) buff.read()) != '\t' && caractere != '(' && caractere != ',' && caractere != '\n'){
+                    terme += caractere;
+                }
+                try {
+                    Double.valueOf(terme);
+                    nationalite = "french";
+                }catch(NumberFormatException e){
+                    nationalite = terme;
+                }
+                buff.close();
+            }while(getGenre() != genre && genre != null);
+            setNationalite(nationalite);
+            return(prenom);
+        }		
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+        return(null);
+    }
+    
+    private final String generationNom(){
+        try{
+            InputStream flux = new FileInputStream("src\\projet_tennis\\Noms.txt"); 
+            InputStreamReader lecture = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(lecture);
+            int nb_aleatoire = (int) (Math.random() * nbNoms);
+            int i = 0;
+            String nom = "";
+            char caractere;
+            while (i < nb_aleatoire)
+            {
+                buff.readLine();
+                i++;
+            }
+            while ((caractere = (char) buff.read()) != '\t' && caractere != ' '){
+                nom += caractere;
+            }
+            buff.close();
+            return(nom.toUpperCase());
+        }		
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+        return(null);
+    }
+    
+    private final String generationVille(){
+        try{
+            InputStream flux = new FileInputStream("src\\projet_tennis\\Villes.txt"); 
+            InputStreamReader lecture = new InputStreamReader(flux);
+            BufferedReader buff = new BufferedReader(lecture);
+            int nb_aleatoire = (int) (Math.random() * nbVilles);
+            int i = 0;
+            String ville = "";
+            char caractere;
+            while (i < nb_aleatoire)
+            {
+                buff.readLine();
+                i++;
+            }
+            while ((caractere = (char) buff.read()) != '\n'){
+                ville += caractere;
+            }
+            buff.close();
+            return(ville);
+        }		
+        catch (Exception e)
+        {
+            System.out.println(e.toString());
+        }
+        return(null);
     }
     
     private static final void setLastSpeaker(Personne personne)
@@ -288,46 +457,6 @@ public class Personne
     public String toString()
     {
         return getNom() + " " + getPrenom();
-    }
-    
-    static
-    {
-        final Integer NB_IDENTTITE = 5;
-        
-        PRENOMS_H = new String[NB_IDENTTITE];
-        PRENOMS_H[0] = "Julien";
-        PRENOMS_H[1] = "Nathan";
-        PRENOMS_H[2] = "Gilles";
-        PRENOMS_H[3] = "Pierre";
-        PRENOMS_H[4] = "Nicolas";
-        
-        PRENOMS_F = new String[NB_IDENTTITE];
-        PRENOMS_F[0] = "Julie";
-        PRENOMS_F[1] = "Margaux";
-        PRENOMS_F[2] = "Marine";
-        PRENOMS_F[3] = "Manon";
-        PRENOMS_F[4] = "Natacha";
-        
-        NOMS = new String[NB_IDENTTITE];
-        NOMS[0] = "Leroux";
-        NOMS[1] = "Duvin";
-        NOMS[2] = "Bigorneaux";
-        NOMS[3] = "Coquillages";
-        NOMS[4] = "Rouson";
-        
-        LIEUX  = new String[NB_IDENTTITE];
-        LIEUX[0] = "Madrid";
-        LIEUX[1] = "Paris";
-        LIEUX[2] = "Londres";
-        LIEUX[3] = "New York";
-        LIEUX[4] = "Moscou";
-        
-        NATIONALITES = new String[NB_IDENTTITE];
-        NATIONALITES[0] = "Espagnol";
-        NATIONALITES[1] = "Français";
-        NATIONALITES[2] = "Anglais";
-        NATIONALITES[3] = "Américain";
-        NATIONALITES[4] = "Russe";
     }
     
 }

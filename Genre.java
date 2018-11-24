@@ -11,7 +11,7 @@ package projet_tennis;
  */
 public enum Genre
 {
-    Homme ("hommme"),
+    Homme ("homme"),
     Femme ("femme");
     
     private final String genre;
