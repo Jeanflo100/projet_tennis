@@ -59,8 +59,45 @@ public class Personne
         setCouleur(Couleur.values()[(int) (Math.random() * Couleur.values().length)]); 
     }
     
+    public Personne(Genre genre)
+    {
+        incrementeNbPersonne();
+        ID = getNbPersonne();
+        this.genre = genre;
+        
+        prenom = generationPrenom();        // Générera aussi la nationalité
+        nomNaissance = generationNom();
+        setNomCourant(nomNaissance);
+        
+        dateNaissance = Date.dateAleatoire(new Date(1, 1, 1970), new Date(1, 1, 2000));
+        lieuNaissance = generationVille();
+        
+        setTaille(150 + (float) Math.random() * (200 - 150));
+        setPoids(50 + (float) Math.random() * (100 - 50));
+        setCouleur(Couleur.values()[(int) (Math.random() * Couleur.values().length)]);
+    }
+    
+    public Personne(Genre genre, String prenom, String nomCourant, String nomNaissance, Date dateNaissance, String lieuNaissance, String nationalite, Float taille, Float poids, Couleur couleur){
+        incrementeNbPersonne();
+        ID = getNbPersonne();
+        this.genre = genre;
+        
+        this.prenom = prenom;
+        this.nomCourant = nomCourant;
+        this.nomNaissance = nomNaissance;
+        
+        this.dateNaissance = dateNaissance;
+        this.lieuNaissance = lieuNaissance;
+        this.nationalite = nationalite;
+        
+        this.taille = taille;
+        this.poids = poids;
+        setCouleur(couleur);
+    }
+    
     public Personne(Personne personne)
     {
+        incrementeNbPersonne();
         ID = personne.getID();
         genre = personne.getGenre();
         
@@ -76,7 +113,6 @@ public class Personne
         setPoids(personne.getPoids());
         setCouleur(personne.getCouleur());
     }
-    
     
     public static final Integer getNbPersonne()
     {

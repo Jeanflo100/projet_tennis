@@ -30,6 +30,24 @@ public final class Joueur extends Personne
         setEntraineur(new Personne());
         setInClassement();
     }
+    
+    public Joueur(Genre genre)
+    {
+        super(genre);
+        main = Main.values()[(int) ((Math.random() * Main.values().length)*0.7)];
+        setSponsors(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
+        setEntraineur(new Personne());
+        setInClassement();
+    }
+    
+    public Joueur(Genre genre, String prenom, String nomCourant, String nomNaissance, Date dateNaissance, String lieuNaissance, String nationalite, Float taille, Float poids, Couleur couleur, Main main){
+        super(genre, prenom, nomCourant, nomNaissance, dateNaissance, lieuNaissance, nationalite, taille, poids, couleur);
+        this.main = main;
+        setSponsors(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
+        setEntraineur(new Personne());
+        setInClassement();
+    }
+    
     public Joueur(Joueur joueur)
     {
         super(joueur);
@@ -155,6 +173,10 @@ public final class Joueur extends Personne
     @Override
     public final String toString()
     {
-        return "Joueur " + getNom();
+        switch (getGenre()){
+            case Femme : return "Joueuse " + getNom();
+            default : return "Joueur " + getNom();
+        }
+        
     }
 }
