@@ -77,6 +77,7 @@ public class Personne
         setCouleur(personne.getCouleur());
     }
     
+    
     public static final Integer getNbPersonne()
     {
         return nbPersonne;

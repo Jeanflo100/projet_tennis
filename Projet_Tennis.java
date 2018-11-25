@@ -30,9 +30,16 @@ public class Projet_Tennis
         System.out.println(arbitre);
         System.out.println();
         
-        Tie_Break test = new Tie_Break(joueur1, joueur2, arbitre);
-        test.jouer();
+        System.out.println("Classement :");
+        for(Joueur joueur : Joueur.getClassement())
+        {
+            System.out.println("\t" + joueur.getRang() + "\t" + joueur.getPoints() + "\t" + joueur.getNom() + " " + joueur.getPrenom());
+        }
+        System.out.println();
         
+        System.out.println(m);
+        /*Match test = new Match(joueur1, joueur2, arbitre);
+        test.jouer();*/
     }
     
     public static final void creationJoueurs(){
