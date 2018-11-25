@@ -35,7 +35,7 @@ public final class Tie_Break
         receveur = serveur.getID().equals(joueur1.getID()) ? new Joueur(joueur2) : new Joueur(joueur1);
     }
     
-    public final void jouer()
+    public final boolean jouer()
     {
         arbitre.ennoncerServeur(serveur);
         System.out.println();
@@ -52,6 +52,7 @@ public final class Tie_Break
             echange(sc.nextInt());
             arbitre.parler(this);
         }
+        return score.get(1).compareTo(score.get(2)) > 0;
     }
     
     public final void echange()
@@ -90,6 +91,6 @@ public final class Tie_Break
         {
             return score.toString();
         }
-        return "Jeu " + (score.get(1).compareTo(score.get(2) + 2) >= 0 ? joueur1.getNom() : joueur2.getNom());
+        return "Jeu " + (score.get(1).compareTo(score.get(2)) > 0 ? joueur1.getNom() : joueur2.getNom());
     }
 }

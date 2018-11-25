@@ -15,13 +15,14 @@ public class Set
     private final Joueur joueur1;
     private final Joueur joueur2;
     private final Arbitre arbitre;
-    private Boolean nbJeuPair = true;
+    private Boolean nbJeuPair;
     
-    public Set(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
+    public Set(Joueur joueur1, Joueur joueur2, Arbitre arbitre, Boolean nbJeuPair)
     {
-        this.joueur1 = joueur1;
-        this.joueur2 = joueur2;
-        this.arbitre = arbitre;
+        this.joueur1 = new Joueur(joueur1);
+        this.joueur2 = new Joueur(joueur2);
+        this.arbitre = new Arbitre(arbitre);
+        setNbJeuPeir(nbJeuPair);
     }
     
     public final void setNbJeuPeir(Boolean bool)
@@ -34,11 +35,20 @@ public class Set
         return nbJeuPair;
     }
     
-    /*public final void jouer()
+    public final Score<Integer> jouer()
     {
-        while(score.get(1).compareTo(6) < 0 && score.get(2).compareTo(6) < 0)
+        while(((score.get(1).compareTo(6) < 0 && score.get(2).compareTo(6) < 0) || (Math.abs(score.get(1)-score.get(2)) < 2)) && !(score.get(1).equals(6) && score.get(2).equals(6)))
         {
-            Boolean test = new Jeu
+            Jeu jeu = nbJeuPair ? new Jeu(joueur1, joueur2, arbitre) : new Jeu(joueur2, joueur1, arbitre);
+            Score.incremente(score, jeu.jouer() == nbJeuPair ? 1 : 2);
+            setNbJeuPeir(!getNbJeuPair());
         }
-    }*/
+        if(score.get(1).equals(score.get(2)))
+        {
+            Tie_Break jeu = new Tie_Break(joueur1, joueur2, arbitre);
+            Score.incremente(score, jeu.jouer() ? 1 : 2);
+        }
+        arbitre.parler("Set " + (score.get(1) > score.get(2) ? joueur1.getNom() : joueur2.getNom()));
+        return score;
+    }
 }
