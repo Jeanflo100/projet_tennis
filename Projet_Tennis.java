@@ -5,7 +5,6 @@
  */
 package projet_tennis;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -31,31 +30,25 @@ public class Projet_Tennis
         System.out.println(joueurs[127]);
         System.out.println(joueuses[0]);
         System.out.println(joueuses[100]);
+        System.out.println("");
         
         // Gillou
         
-        /*Joueur joueur1 = new Joueur();
-        Joueur joueur2 = new Joueur();
         Arbitre arbitre = new Arbitre();
-        
-        System.out.println(joueur1);
-        System.out.println(joueur2);
         System.out.println(arbitre);
         System.out.println();
         
-        Tie_Break test = new Tie_Break(joueur1, joueur2, arbitre);
+        System.out.println("Classement :");
+        for(Joueur joueur : Joueur.getClassement())
+        {
+            System.out.println("\t" + joueur.getRang() + "\t" + joueur.getPoints() + "\t" + joueur.getNom() + " " + joueur.getPrenom());
+        }
+        System.out.println();
+        
+        /*Match test = new Match(joueur1, joueur2, arbitre);
         test.jouer();*/
         
     }
-    
-    /*public static final void incrementationJoueurs(){
-        System.arraycopy(joueurs, 0, joueursplus, 0, nb_joueurs);
-        nb_joueurs++;
-        Joueur[] joueurs = new Joueur[5];
-        System.out.println(joueurs.length);
-        System.out.println(joueursplus.length);
-
-    }*/
     
     private static final void creationJoueurs(){
         System.out.println("Bonjour et bienvenue dans le Championnat de Tennis du 'Grand Chelem'");
