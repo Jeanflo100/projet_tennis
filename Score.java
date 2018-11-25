@@ -6,7 +6,7 @@
 package projet_tennis;
 
 /**
- *
+ * Cette classe permet de gérer les Scores dans les différentes étapes du match. Sa générécité permet de ne plus avoir à se préoccuper si les points sont des entiers (comme pour le comptage des sets et dex jeux, ou des valeurs particulières, comme les points dans un jeu.
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
 public final class Score<Type>

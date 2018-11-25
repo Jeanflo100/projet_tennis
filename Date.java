@@ -8,7 +8,7 @@ package projet_tennis;
 import java.util.Calendar;
 
 /**
- *
+ * nous avons choisi de créer une classe Date "par dessus" la classe Calendar pour en simplifier la manipulation.
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
 public final class Date
@@ -33,6 +33,11 @@ public final class Date
     {
         date.set(Calendar.DATE, jour);
     }
+
+    /**
+     * Décalage d'indice pour revenir à la manipulation des mois avec les nombres courant : 1 -> Janvier ... 12 -> Décembre
+     * @param mois
+     */
     public final void setMois(Integer mois)
     {
         date.set(Calendar.MONTH, mois - 1);
@@ -110,6 +115,13 @@ public final class Date
     {
         return date1.compareA(date2);
     }
+
+    /**
+     * Création d'une date aléatoire comprise entre les deux dates données en paramètres (incluses)
+     * @param date1
+     * @param date2
+     * @return
+     */
     public static final Date dateAleatoire(Date date1, Date date2)
     {
         if (date1.compareA(date2) == 0)
@@ -140,6 +152,12 @@ public final class Date
         } while ((date.compareA(date1) < 0) || (date.compareA(date2) > 0));
         return date;
     }
+
+    /**
+     * Cette fonction ne renvoit pas une date réellement mais le temps qu'il s'est écoulé enter les deux dates
+     * @param date
+     * @return
+     */
     public final Date difference(Date date)
     {
         Date dateMin = new Date(this);
@@ -166,6 +184,13 @@ public final class Date
         
         return new Date(jour, mois, annee);
     }
+
+    /**
+     * Cette fonction ne renvoit pas une date réellement mais le temps qu'il s'est écoulé enter les deux dates
+     * @param date1
+     * @param date2
+     * @return
+     */
     public static final Date difference(Date date1, Date date2)
     {
         return date1.difference(date2);

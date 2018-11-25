@@ -40,6 +40,12 @@ public final class Match
     {
         return new Score<>(score.get(1), score.get(2));
     }
+
+    /**
+     * Permet de récupérer plus simplement le score de l'un des deux joueurs
+     * @param joueur
+     * @return
+     */
     public final Integer getScore(Integer joueur)
     {
         return getScore().get(joueur);
@@ -150,6 +156,7 @@ public final class Match
         }
         
         getArbitre().parler("Jeu, Set, et Match " + getGagnant().getNom());                                             // L'arbitre indique le vainqueur.
+        getArbitre().parler(this);
         getGagnant().setPoints(Integer.max(1, Math.abs(getGagnant().getRang() - getPerdant().getRang())));
         getPerdant().setPoints(Integer.min(-1, -Math.abs(getGagnant().getRang() - getPerdant().getRang())));
     }

@@ -29,6 +29,11 @@ public enum Terrain
         return terrain;
     }
     
+    /**
+     * Cette fonction permettra de générer l'une des constances à partir d'un string. (Servira notemment pour permettre à l'utilisateur de choisir au travers d'une saisie au clavier
+     * @param name
+     * @return
+     */
     public final static Terrain fromString(String name)
     {
         for(Terrain value : values())

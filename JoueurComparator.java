@@ -8,7 +8,7 @@ package projet_tennis;
 import java.util.Comparator;
 
 /**
- *
+ * Cette classe nous permettra de trier le classement dans l'ordre décroissant des points des joueurs
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
 

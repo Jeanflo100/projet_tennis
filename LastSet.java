@@ -6,7 +6,7 @@
 package projet_tennis;
 
 /**
- *
+ * Cette classe modélise le cas particuliers du 5ème set pour lequel les règles différents légèrement entre les différents tournois
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
 public class LastSet extends Set

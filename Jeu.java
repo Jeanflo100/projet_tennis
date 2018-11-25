@@ -34,6 +34,12 @@ public final class Jeu
     {
         return new Score<>(score.get(1), score.get(2));
     }
+
+    /**
+     * Permet de récupérer plus simplement le score de l'un des deux joueurs
+     * @param joueur
+     * @return
+     */
     public final PointsEnum getScore(Integer joueur)
     {
         return getScore().get(joueur).get();

@@ -368,7 +368,7 @@ public class Personne
         return(null);
     }
     
-    private final String generationNom(){
+    protected final String generationNom(){
         try{
             InputStream flux = new FileInputStream("src\\projet_tennis\\Noms.txt"); 
             InputStreamReader lecture = new InputStreamReader(flux);

@@ -6,7 +6,7 @@
 package projet_tennis;
 
 /**
- *
+ * Cette classe permet de gérer les opérations sur les points au tennis (incrémentation de 15 à 30, les Avantages, etc...)
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
 public final class Points

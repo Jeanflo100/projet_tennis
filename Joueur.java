@@ -20,14 +20,14 @@ public final class Joueur extends Personne
     private final Main main;
     private Integer points = 0;
     private HashSet sponsors = new HashSet();
-    private Personne entraineur;
+    private String entraineur;
     
     public Joueur()
     {
         super();
         main = Main.values()[(int) ((Math.random() * Main.values().length)*0.7)];
         setSponsors(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
-        setEntraineur(new Personne());
+        setEntraineur(generationNom());
         setInClassement();
     }
     
@@ -36,7 +36,7 @@ public final class Joueur extends Personne
         super(genre);
         main = Main.values()[(int) ((Math.random() * Main.values().length)*0.7)];
         setSponsors(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
-        setEntraineur(new Personne());
+        setEntraineur(generationNom());
         setInClassement();
     }
     
@@ -44,7 +44,7 @@ public final class Joueur extends Personne
         super(genre, prenom, nomCourant, nomNaissance, dateNaissance, lieuNaissance, nationalite, taille, poids, couleur);
         this.main = main;
         setSponsors(Sponsor.values()[(int) (Math.random() * Sponsor.values().length)]);
-        setEntraineur(new Personne());
+        setEntraineur(generationNom());
         setInClassement();
     }
     
@@ -86,9 +86,9 @@ public final class Joueur extends Personne
         Arrays.sort(classement, new JoueurComparator());
     }
     
-    public final void setEntraineur(Personne entraineur)
+    public final void setEntraineur(String nom)
     {
-        this.entraineur = new Personne(entraineur);
+        this.entraineur = nom;
     }
     
     private final void setInClassement()
@@ -132,7 +132,7 @@ public final class Joueur extends Personne
         return points;
     }
     
-    public final Personne getEntraineur()
+    public final String getEntraineur()
     {
         return entraineur;
     }
@@ -165,10 +165,11 @@ public final class Joueur extends Personne
         return getClassement().length;
     }
     
-    public final void changementTenue()
+    public final void changementTenue() throws InterruptedException
     {
-        parler("Je change de tenue !");
+        parler("Attendez ! Je dois changer de tenue !");
         wait(3000);
+        parler("C'est bon, merci !");
     }
     
     @Override
