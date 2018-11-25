@@ -11,32 +11,137 @@ package projet_tennis;
  */
 public class Match
 {
+    private final TournoisEnum tournois;
     private final Score<Integer> score = new Score<>(0, 0);     // Score actuel du match : nombre de Set gagné pou chaque joueur
     private final Score<Integer>[] scoresSet = new Score[5];    // Tableau des scores de chaque set fait. Il ne peut y avoir que 5 set maximum dans un match
     private final Joueur joueur1;
     private final Joueur joueur2;
     private final Arbitre arbitre;
+    private Boolean fini = false;
+    private Joueur gagnant;
+    private Joueur perdant;
     
-    public Match(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
+    
+    public Match(Joueur joueur1, Joueur joueur2, Arbitre arbitre, TournoisEnum tournois)
     {
         this.joueur1 = new Joueur(joueur1);
         this.joueur2 = new Joueur(joueur2);
         this.arbitre = new Arbitre(arbitre);
+        this.tournois = tournois;
+    }
+    
+    
+    public final Score<Integer> getScore()
+    {
+        return new Score<>(score.get(1), score.get(2));
+    }
+    
+    public final Score<Integer>[] getScoresSet()
+    {
+        final Score<Integer>[] scoresSetCopy = new Score[scoresSet.length];
+        System.arraycopy(scoresSet, 0, scoresSetCopy, 0, scoresSet.length);
+        return scoresSetCopy;
+    }
+    
+    public final Joueur getJoueur1()
+    {
+        return new Joueur(joueur1);
+    }
+    
+    public final Joueur getJoueur2()
+    {
+        return new Joueur(joueur2);
+    }
+    
+    public final Arbitre getArbitre()
+    {
+        return new Arbitre(arbitre);
+    }
+    
+    public final Boolean getFini()
+    {
+        return fini;
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getGagnant()
+    {
+        return new Joueur(gagnant);
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getPerdant()
+    {
+        return new Joueur(perdant);
+    }
+    
+    private void setResultat(Joueur gagnant, Joueur perdant)
+    {
+        this.gagnant = new Joueur(gagnant);
+        this.perdant = new Joueur(perdant);
+        fini = true;
     }
     
     
     public final void jouer()
     {
-        Boolean serviceJ1 = Math.random() < 0.5;                                                                // Tirage au sort
-        Integer nbSet = 0;                                                                                      // index pour remplir le tableau de score des sets
-        while(score.get(1).compareTo(3) < 0 && score.get(2).compareTo(3) < 0)                                   // Tant qu'aucun joueur n'a gagné 3 sets
+        Boolean serviceJ1 = Math.random() < 0.5;                                                                    // Tirage au sort
+        Integer nbSet = 0;                                                                                          // index pour remplir le tableau de score des sets
+        while(score.get(1).compareTo(3) < 0 && score.get(2).compareTo(3) < 0)                                       // Tant qu'aucun joueur n'a gagné 3 sets
         {
-            Set set = new Set(joueur1, joueur2, arbitre, serviceJ1);                                            // On créé un nouveau set
-            scoresSet[nbSet] = set.jouer();                                                                     // On le fait jouer et on met le score dans le tableau
-            nbSet++;                                                                                            // On passe à l'index du set suivant dans le tableau de score des sets
-            serviceJ1 = (scoresSet[nbSet].get(1) + scoresSet[nbSet].get(2))%2 == 0 ? serviceJ1 : !serviceJ1;    // Si le nombre de set joué est pair, le même joueur servira en premier au prochain set. Si le nombre de set jouer est impair, le serveur change
-            Score.incremente(score, scoresSet[nbSet].get(1)>scoresSet[nbSet].get(2) ? 1 : 2);                   // Si le joueur1 a gagné, on incrément son nombre de set gagné. sinon, on incrément le nombre de set gagné du joueur 2
+            Set set = new Set(joueur1, joueur2, arbitre, serviceJ1);                                                // On créé un nouveau set
+            scoresSet[nbSet] = set.jouer();                                                                         // On le fait jouer et on met le score dans le tableau
+            nbSet++;                                                                                                // On passe à l'index du set suivant dans le tableau de score des sets
+            serviceJ1 = (scoresSet[nbSet].get(1) + scoresSet[nbSet].get(2))%2 == 0 ? serviceJ1 : !serviceJ1;        // Si le nombre de set joué est pair, le même joueur servira en premier au prochain set. Si le nombre de set jouer est impair, le serveur change
+            Score.incremente(score, scoresSet[nbSet].get(1)>scoresSet[nbSet].get(2) ? 1 : 2);                       // Si le joueur1 a gagné, on incrément son nombre de set gagné. sinon, on incrément le nombre de set gagné du joueur 2
         }
-        arbitre.parler("Jeu " + (score.get(1) > score.get(2) ? joueur1.getNom() : joueur2.getNom()));           // Lorsque l'un des joueur a agné 3 set, alors il a forcément gagné plus de set que l'adversaire. On indique le vainqueur en conséquence.
+        if(score.get(1) > score.get(2))                                                                             // Lorsque l'un des joueur a agné 3 set, alors il a forcément gagné plus de set que l'adversaire.
+        {
+            setResultat(getJoueur1(), getJoueur2());            
+        }
+        else
+        {
+            setResultat(getJoueur2(), getJoueur1());
+        }
+        arbitre.parler("Jeu " + getGagnant().getNom());                                                             // L'arbitre indique le vainqueur.
+    }
+    
+    @Override
+    public final String toString()
+    {
+        if(!getFini())
+        {
+            return "Le match n'a pas encore été joué.";
+        }
+        String string = "";
+        final Integer lettreNom = Integer.max(getJoueur1().getNom().length(), getJoueur2().getNom().length());
+        
+        for(Integer i = 1; i <= 2; i++)                                                                             // Pour chacun des deux joueurs
+        {
+            Joueur joueur = new Joueur(i.equals(1) ? getJoueur1() : getJoueur2());                                  // Sélection du joueur
+            string +=  joueur.getNom();                                                                             // On indique son nom, pui
+            for(Integer j = joueur.getNom().length(); j < lettreNom; j++)                                           // On ajoute autant d'espace que nécessaire pour ne pas avoir de décalage si l'autre nom n'a pas le même nombre de caractère
+            {
+                string += " ";
+            }
+            string += "\t";
+            for(Integer j = 0; j < getScoresSet().length; j++)                                                      // On affiche chacun des jeux gagné pour chaque sets joué
+            {
+                if(getScoresSet()[j] == null)                                                                       // Si un set n'a pas été joué, on ne l'affiche pas et les suivant non plus
+                {
+                    break;
+                }
+                string += getScoresSet()[j].get(i) + " ";
+            }
+            string +="\n";
+        }
+        
+        return string;
     }
 }
