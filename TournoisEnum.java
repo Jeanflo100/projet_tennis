@@ -11,10 +11,10 @@ package projet_tennis;
  */
 public enum TournoisEnum
 {
-    Homme ("US Open"),
-    Femme ("Open d'Australie"),
-    truc ("Roland-Garros"),
-    machin ("Wimbledon");
+    AU ("Open d'Australie"),
+    RG ("Roland-Garros"),
+    W ("Wimbledon"),
+    US ("US Open");
     
     private final String tournois;
     

@@ -11,44 +11,124 @@ package projet_tennis;
  */
 public class Set
 {
-    private final Score<Integer> score = new Score<>(0, 0);
+    private Boolean serviceJ1;
+    protected final Score<Integer> score = new Score<>(0, 0);
     private final Joueur joueur1;
     private final Joueur joueur2;
     private final Arbitre arbitre;
-    private Boolean serviceJ1;
+    private Boolean fini = false;
+    private Joueur gagnant;
+    private Joueur perdant;
     
     public Set(Joueur joueur1, Joueur joueur2, Arbitre arbitre, Boolean serviceJ1)
     {
         this.joueur1 = new Joueur(joueur1);
         this.joueur2 = new Joueur(joueur2);
         this.arbitre = new Arbitre(arbitre);
-        setNbJeuPeir(serviceJ1);
+        setServiceJ1(serviceJ1);
     }
     
-    public final void setNbJeuPeir(Boolean bool)
-    {
-        serviceJ1 = bool;
-    }
     
     public final Boolean getServiceJ1()
     {
         return serviceJ1;
     }
-    
-    public final Score<Integer> jouer()
+    protected final void setServiceJ1(Boolean bool)
     {
-        while(((score.get(1).compareTo(6) < 0 && score.get(2).compareTo(6) < 0) || (Math.abs(score.get(1)-score.get(2)) < 2)) && !(score.get(1).equals(6) && score.get(2).equals(6)))
+        this.serviceJ1 = bool;
+    }
+    
+    public final Score<Integer> getScore()
+    {
+        return new Score<>(score.get(1), score.get(2));
+    }
+    public final Integer getScore(Integer joueur)
+    {
+        return getScore().get(joueur);
+    }
+    
+    public final Joueur getJoueur1()
+    {
+        return new Joueur(joueur1);
+    }
+    
+    public final Joueur getJoueur2()
+    {
+        return new Joueur(joueur2);
+    }
+    
+    public final Arbitre getArbitre()
+    {
+        return new Arbitre(arbitre);
+    }
+    
+    public final Boolean getFini()
+    {
+        return fini;
+    }
+    protected final void setFini()
+    {
+        fini = true;
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getGagnant()
+    {
+        return new Joueur(gagnant);
+    }
+    protected final void setGagnant(Joueur gagnant)
+    {
+        this.gagnant = new Joueur(gagnant);
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getPerdant()
+    {
+        return new Joueur(perdant);
+    }
+    protected final void setPerdant(Joueur perdant)
+    {
+        this.perdant = new Joueur(perdant);
+    }
+    
+    protected void setResultat(Joueur gagnant, Joueur perdant)
+    {
+        setGagnant(new Joueur(gagnant));
+        setPerdant(new Joueur(perdant));
+        setFini();
+    }
+    
+    
+    public Score<Integer> jouer()
+    {
+        while(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(6) && getScore(2).equals(6)))
         {
-            Jeu jeu = serviceJ1 ? new Jeu(joueur1, joueur2, arbitre) : new Jeu(joueur2, joueur1, arbitre);
-            Score.incremente(score, jeu.jouer() == serviceJ1 ? 1 : 2);
-            setNbJeuPeir(!getServiceJ1());
+            Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
+            Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
+            setServiceJ1(!getServiceJ1());
         }
-        if(score.get(1).equals(score.get(2)))
+        if(getScore(1).equals(getScore(2)))
         {
-            Tie_Break jeu = new Tie_Break(joueur1, joueur2, arbitre);
-            Score.incremente(score, jeu.jouer() ? 1 : 2);
+            Tie_Break jeu = getServiceJ1() ? new Tie_Break(getJoueur1(), getJoueur2(), getArbitre()) : new Tie_Break(getJoueur2(), getJoueur1(), getArbitre());
+            Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
         }
-        arbitre.parler("Set " + (score.get(1) > score.get(2) ? joueur1.getNom() : joueur2.getNom()));
-        return score;
+        
+        if(getScore(1) > getScore(2))                                                                               // Lorsque l'un des joueur a agné 3 set, alors il a forcément gagné plus de set que l'adversaire.
+        {
+            setResultat(getJoueur1(), getJoueur2());            
+        }
+        else
+        {
+            setResultat(getJoueur2(), getJoueur1());
+        }
+        
+        getArbitre().parler("Set " + getGagnant().getNom());
+        return getScore();
     }
 }

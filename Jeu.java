@@ -11,13 +11,16 @@ import java.util.Scanner;
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
-public class Jeu
+public final class Jeu
 {
     private final Score<Points> score = new Score<>(new Points(), new Points());
     private final Joueur serveur;
     private final Joueur receveur;
     private final Arbitre arbitre;
     private Boolean egalite = false;
+    private Boolean fini = false;
+    private Joueur gagnant;
+    private Joueur perdant;
     
     public Jeu(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
     {
@@ -26,9 +29,76 @@ public class Jeu
         this.arbitre = new Arbitre(arbitre);
     }
     
-    public final void setEgalite(Boolean valeur)
+    
+    public final Score<Points> getScore()
     {
-        egalite = valeur;
+        return new Score<>(score.get(1), score.get(2));
+    }
+    public final PointsEnum getScore(Integer joueur)
+    {
+        return getScore().get(joueur).get();
+    }
+    
+    public final Joueur getServeur()
+    {
+        return new Joueur(serveur);
+    }
+    
+    public final Joueur getReceveur()
+    {
+        return new Joueur(receveur);
+    }
+    
+    public final Arbitre getArbitre()
+    {
+        return new Arbitre(arbitre);
+    }
+    
+    public final Boolean getFini()
+    {
+        return fini;
+    }
+    private final void setFini()
+    {
+        fini = true;
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getGagnant()
+    {
+        return new Joueur(gagnant);
+    }
+    private final void setGagnant(Joueur gagnant)
+    {
+        this.gagnant = new Joueur(gagnant);
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getPerdant()
+    {
+        return new Joueur(perdant);
+    }
+    private final void setPerdant(Joueur perdant)
+    {
+        this.perdant = new Joueur(perdant);
+    }
+    
+    private void setResultat(Joueur gagnant, Joueur perdant)
+    {
+        setGagnant(new Joueur(gagnant));
+        setPerdant(new Joueur(perdant));
+        setFini();
+    }
+    
+    private final void setEgalite()
+    {
+        egalite = true;
     }
     
     public final Boolean getEgalite()
@@ -38,17 +108,29 @@ public class Jeu
     
     public final boolean jouer()
     {
-        setEgalite(false);
-        arbitre.ennoncerServeur(serveur);
+        getArbitre().ennoncerServeur(getServeur());
         System.out.println();
-        arbitre.parler(this);
-        while(!score.get(1).get().equals(PointsEnum.JEU) && !score.get(2).get().equals(PointsEnum.JEU))
+        getArbitre().parler(this);
+        while(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
         {
             Scanner sc = new Scanner(System.in);
             echange(sc.nextInt());
-            arbitre.parler(this);
+            if(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
+            {
+                getArbitre().parler(this);
+            }
         }
-        return score.get(1).get().equals(PointsEnum.JEU);
+        
+        if(getScore(1).compareTo(PointsEnum.JEU) == 0)
+        {
+            setResultat(getServeur(), getReceveur());
+        }
+        else if(getScore(2).compareTo(PointsEnum.JEU) == 0)
+        {
+            setResultat(getReceveur(), getServeur());
+        }
+        
+        return getScore(1).equals(PointsEnum.JEU);
     }
     
     public final void echange()
@@ -56,12 +138,12 @@ public class Jeu
         final Float alea = (float) Math.random();
         if (alea < 0.5)
         {
-            arbitre.parler("Point : " + serveur.getNom());
+            getArbitre().parler("Point : " + getServeur().getNom());
             Score.incremente(score, 1);
         }
         else
         {
-            arbitre.parler("Point : " + receveur.getNom());
+            getArbitre().parler("Point : " + getReceveur().getNom());
             Score.incremente(score, 2);
         }
     }
@@ -70,12 +152,12 @@ public class Jeu
     {
         if (nombre == 1)
         {
-            arbitre.parler("Point : " + serveur.getNom());
+            getArbitre().parler("Point : " + getServeur().getNom());
             Score.incremente(score, 1);
         }
         else
         {
-            arbitre.parler("Point : " + receveur.getNom());
+            getArbitre().parler("Point : " + getReceveur().getNom());
             Score.incremente(score, 2);
         }
     }
@@ -84,30 +166,21 @@ public class Jeu
     public final String toString()
     {
         String texte;
-        texte = score.toString();
+        texte = getScore().toString();
         
-        if((score.get(1).get().compareTo(PointsEnum.QUARANTE) == 0) && (score.get(2).get().compareTo(PointsEnum.QUARANTE) == 0))
+        if((getScore(1).compareTo(PointsEnum.QUARANTE) == 0) && (getScore(2).compareTo(PointsEnum.QUARANTE) == 0))
         {
             texte = getEgalite() ? "Égalité" : PointsEnum.QUARANTE.toString() + " A";
-            setEgalite(true);
+            setEgalite();
         }
         
-        if(score.get(1).get().compareTo(PointsEnum.AVANTAGE) == 0)
+        if(getScore(1).compareTo(PointsEnum.AVANTAGE) == 0)
         {
-            texte = score.get(1).get().toString() + " " + serveur.getNom();
+            texte = getScore(1).toString() + " " + getServeur().getNom();
         }
-        else if(score.get(2).get().compareTo(PointsEnum.AVANTAGE) == 0)
+        else if(getScore(2).compareTo(PointsEnum.AVANTAGE) == 0)
         {
-            texte = score.get(2).get().toString() + " " + receveur.getNom();
-        }
-        
-        if(score.get(1).get().compareTo(PointsEnum.JEU) == 0)
-        {
-            texte = score.get(1).get().toString() + " " + serveur.getNom();
-        }
-        else if(score.get(2).get().compareTo(PointsEnum.JEU) == 0)
-        {
-            texte = score.get(2).get().toString() + " " + receveur.getNom();
+            texte = getScore(2).toString() + " " + getReceveur().getNom();
         }
         
         return texte;

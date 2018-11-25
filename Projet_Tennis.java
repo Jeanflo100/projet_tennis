@@ -25,28 +25,20 @@ public class Projet_Tennis
     {        
         // Jeanflo
         
-        creationJoueurs();
+        /*creationJoueurs();
         System.out.println(joueurs[54]);
         System.out.println(joueurs[127]);
         System.out.println(joueuses[0]);
         System.out.println(joueuses[100]);
-        System.out.println("");
+        System.out.println("");*/
         
         // Gillou
-        
+        Joueur joueur1 = new Joueur();
+        Joueur joueur2 = new Joueur();
         Arbitre arbitre = new Arbitre();
-        System.out.println(arbitre);
-        System.out.println();
         
-        System.out.println("Classement :");
-        for(Joueur joueur : Joueur.getClassement())
-        {
-            System.out.println("\t" + joueur.getRang() + "\t" + joueur.getPoints() + "\t" + joueur.getNom() + " " + joueur.getPrenom());
-        }
-        System.out.println();
-        
-        /*Match test = new Match(joueur1, joueur2, arbitre);
-        test.jouer();*/
+        Match test = new Match(joueur1, joueur2, arbitre, TournoisEnum.AU);
+        test.jouer();
         
     }
     

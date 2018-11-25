@@ -19,6 +19,9 @@ public final class Tie_Break
     private final Arbitre arbitre;
     private Joueur serveur;
     private Joueur receveur;
+    private Boolean fini = false;
+    private Joueur gagnant;
+    private Joueur perdant;
     
     public Tie_Break(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
     {
@@ -29,30 +32,128 @@ public final class Tie_Break
         receveur = new Joueur(joueur2);
     }
     
+    
+    public final Score<Integer> getScore()
+    {
+        return new Score<>(score.get(1), score.get(2));
+    }
+    public final Integer getScore(Integer joueur)
+    {
+        return getScore().get(joueur);
+    }
+    
+    public final Joueur getJoueur1()
+    {
+        return new Joueur(joueur1);
+    }
+    
+    public final Joueur getJoueur2()
+    {
+        return new Joueur(joueur2);
+    }
+    
+    public final Arbitre getArbitre()
+    {
+        return new Arbitre(arbitre);
+    }
+    
+    public final Boolean getFini()
+    {
+        return fini;
+    }
+    private final void setFini()
+    {
+        fini = true;
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getGagnant()
+    {
+        return new Joueur(gagnant);
+    }
+    private final void setGagnant(Joueur gagnant)
+    {
+        this.gagnant = new Joueur(gagnant);
+    }
+    
+    /**
+     *
+     * @return null si le match n'a pas encore été joué
+     */
+    public final Joueur getPerdant()
+    {
+        return new Joueur(perdant);
+    }
+    private final void setPerdant(Joueur perdant)
+    {
+        this.perdant = new Joueur(perdant);
+    }
+    
+    private void setResultat(Joueur gagnant, Joueur perdant)
+    {
+        setGagnant(new Joueur(gagnant));
+        setPerdant(new Joueur(perdant));
+        setFini();
+    }
+    
+    public final Joueur getServeur()
+    {
+        return new Joueur(serveur);
+    }
+    private final void setServeur(Joueur serveur)
+    {
+        this.serveur = new Joueur(serveur);
+    }
+    
+    public final Joueur getReceveur()
+    {
+        return new Joueur(receveur);
+    }
+    private final void setReceveur(Joueur serveur)
+    {
+        this.serveur = new Joueur(serveur);
+    }
+    
     public final void changerServeur()
     {
-        serveur = serveur.getID().equals(joueur1.getID()) ? new Joueur(joueur2) : new Joueur(joueur1);
-        receveur = serveur.getID().equals(joueur1.getID()) ? new Joueur(joueur2) : new Joueur(joueur1);
+        setServeur(getServeur().getID().equals(getJoueur1().getID()) ? new Joueur(getJoueur2()) : new Joueur(getJoueur1()));
+        setReceveur(getReceveur().getID().equals(getJoueur1().getID()) ? new Joueur(getJoueur2()) : new Joueur(getJoueur1()));
     }
     
     public final boolean jouer()
     {
-        arbitre.ennoncerServeur(serveur);
+        getArbitre().ennoncerServeur(getServeur());
         System.out.println();
-        arbitre.parler(this);
-        while((score.get(1).compareTo(7) < 0 && score.get(2).compareTo(7) < 0) || (Math.abs(score.get(1)-score.get(2)) < 2))
+        getArbitre().parler(this);
+        while((getScore(1).compareTo(7) < 0 && getScore(2).compareTo(7) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
         {
-            if((score.get(1) + score.get(2))%2 == 1)
+            if((getScore(1) + getScore(2))%2 == 1)
             {
                 changerServeur();
-                arbitre.ennoncerServeur(serveur);
+                getArbitre().ennoncerServeur(getServeur());
                 System.out.println();
             }
             Scanner sc = new Scanner(System.in);
             echange(sc.nextInt());
-            arbitre.parler(this);
+            if((getScore(1).compareTo(7) < 0 && getScore(2).compareTo(7) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
+            {
+                getArbitre().parler(this);
+            }
         }
-        return score.get(1).compareTo(score.get(2)) > 0;
+        
+        if(getScore(1) > getScore(2))                                                                               // Lorsque l'un des joueur a agné 7 points avec un écart de 2 ou plus, alors il a forcément gagné plus de set que l'adversaire.
+        {
+            setResultat(getJoueur1(), getJoueur2());            
+        }
+        else
+        {
+            setResultat(getJoueur2(), getJoueur1());
+        }
+        
+        return getScore(1).compareTo(getScore(2)) > 0;
     }
     
     public final void echange()
@@ -60,12 +161,12 @@ public final class Tie_Break
         final Float alea = (float) Math.random();
         if (alea < 0.5)
         {
-            arbitre.parler("Point : " + joueur1.getNom());
+            getArbitre().parler("Point : " + getJoueur1().getNom());
             Score.incremente(score, 1);
         }
         else
         {
-            arbitre.parler("Point : " + joueur2.getNom());
+            getArbitre().parler("Point : " + getJoueur2().getNom());
             Score.incremente(score, 2);
         }
     }
@@ -74,12 +175,12 @@ public final class Tie_Break
     {
         if (nombre == 1)
         {
-            arbitre.parler("Point : " + joueur1.getNom());
+            getArbitre().parler("Point : " + getJoueur1().getNom());
             Score.incremente(score, 1);
         }
         else
         {
-            arbitre.parler("Point : " + joueur2.getNom());
+            getArbitre().parler("Point : " + getJoueur2().getNom());
             Score.incremente(score, 2);
         }
     }
@@ -87,10 +188,6 @@ public final class Tie_Break
     @Override
     public final String toString()
     {
-        if((score.get(1).compareTo(7) < 0 && score.get(2).compareTo(7) < 0) || (Math.abs(score.get(1)-score.get(2)) < 2))
-        {
-            return score.toString();
-        }
-        return "Jeu " + (score.get(1).compareTo(score.get(2)) > 0 ? joueur1.getNom() : joueur2.getNom());
+        return getScore().toString();
     }
 }
