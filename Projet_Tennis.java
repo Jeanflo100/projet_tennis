@@ -5,6 +5,8 @@
  */
 package projet_tennis;
 
+import java.util.Scanner;
+
 /**
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
@@ -18,23 +20,12 @@ public class Projet_Tennis
         */
         
         // Jeanflo
-        /*
-        Sponsor test[] = new Sponsor[5];
-        for (Sponsor sponsor : test) {
-            System.out.println(sponsor);
-        }
         
-        for (int i = 0; i<10; i++){
-            Personne test = new Personne();
-            Joueur test2 = new Joueur();
-            System.out.println(test.getGenre() + " : " + test.getNomNaissance() + " --> " + test.getNomCourant());
-            System.out.println(test2.getMain());
-        }
-        */
+        creationJoueurs();
         
         // Gillou
         
-        Joueur joueur1 = new Joueur();
+        /*Joueur joueur1 = new Joueur();
         Joueur joueur2 = new Joueur();
         Arbitre arbitre = new Arbitre();
         
@@ -44,6 +35,22 @@ public class Projet_Tennis
         System.out.println();
         
         Jeu test = new Jeu(joueur1, joueur2, arbitre);
-        test.jouer();
+        test.jouer();*/
+        
     }
+    
+    private static final void creationJoueurs(){
+            System.out.println("Bonjour et bienvenue dans le Tournoi de Tennis du 'Grand Chelem'");
+            System.out.println("Commençons tout d'abord pour créer les joueurs du tournoi masculin : ");
+            System.out.println("Souhaitez-vous en créer un ou les faire aléatoirement ? (o/n)");
+            Scanner sc = new Scanner(System.in);
+            String reponse = sc.toString();
+            if (reponse == "o"){
+                System.out.println("5");
+            }
+            else {
+                System.out.println("4");
+            }
+        }
+    
 }
