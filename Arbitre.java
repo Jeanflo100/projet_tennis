@@ -16,6 +16,11 @@ public final class Arbitre extends Personne
         super();
     }
     
+    public Arbitre(Arbitre arbitre)
+    {
+        super(arbitre);
+    }
+    
     public final void ennoncerServeur(Joueur joueur)
     {
         parler("Service : " + joueur.getNom());

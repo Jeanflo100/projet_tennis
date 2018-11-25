@@ -11,20 +11,19 @@ import java.util.Scanner;
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
-public final class Jeu
+public class Jeu
 {
     private final Score<Points> score = new Score<>(new Points(), new Points());
     private final Joueur serveur;
     private final Joueur receveur;
     private final Arbitre arbitre;
-    private Joueur gagnant;
     private Boolean egalite = false;
     
     public Jeu(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
     {
-        serveur = joueur1;
-        receveur = joueur2;
-        this.arbitre = arbitre;
+        serveur = new Joueur(joueur1);
+        receveur = new Joueur(joueur2);
+        this.arbitre = new Arbitre(arbitre);
     }
     
     public final void setEgalite(Boolean valeur)
@@ -37,7 +36,7 @@ public final class Jeu
         return egalite;
     }
     
-    public final void jouer()
+    public final boolean jouer()
     {
         setEgalite(false);
         arbitre.ennoncerServeur(serveur);
@@ -48,6 +47,7 @@ public final class Jeu
             Scanner sc = new Scanner(System.in);
             echange(sc.nextInt());
         }
+        return score.get(1).get().equals(PointsEnum.JEU);
     }
     
     public final void echange()
@@ -81,6 +81,7 @@ public final class Jeu
         arbitre.parler(this);
     }
     
+    @Override
     public final String toString()
     {
         String texte;

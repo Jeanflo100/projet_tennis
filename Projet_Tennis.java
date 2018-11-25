@@ -40,11 +40,11 @@ public class Projet_Tennis
     }
     
     private static final void creationJoueurs(){
-            System.out.println("Bonjour et bienvenue dans le Tournoi de Tennis du 'Grand Chelem'");
-            System.out.println("Commençons tout d'abord pour créer les joueurs du tournoi masculin : ");
+            System.out.println("Bonjour et bienvenue dans le Championnat de Tennis du 'Grand Chelem'");
+            System.out.println("Commençons tout d'abord par créer les joueurs du tournoi masculin : ");
             System.out.println("Souhaitez-vous en créer un ou les faire aléatoirement ? (o/n)");
             Scanner sc = new Scanner(System.in);
-            String reponse = sc.toString();
+            String reponse = sc.nextLine();
             if (reponse == "o"){
                 System.out.println("5");
             }
