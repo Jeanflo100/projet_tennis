@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
  */
-public class Personne
+public abstract class Personne
 {
     // Constantes de la classe    
     
@@ -22,7 +22,7 @@ public class Personne
     private static final Integer NB_NOMS = initNbNoms();
     private static final Integer NB_VILLES = initNbVilles();
     private static Integer nbPersonne = 0;
-    private static Personne lastSpeaker;
+    private static Integer lastSpeakerID;
     
     
     
@@ -188,9 +188,9 @@ public class Personne
         return new Date(dateNaissance);
     }
     
-    public static final Personne getLastSpeaker()
+    public static final Integer getLastSpeakerID()
     {
-        return lastSpeaker == null ? null : new Personne(lastSpeaker);
+        return lastSpeakerID == null ? null : lastSpeakerID;
     }
     
     public final void setNationalite(String nationalite)
@@ -422,9 +422,9 @@ public class Personne
         return(null);
     }
     
-    private static final void setLastSpeaker(Personne personne)
+    private static final void setLastSpeakerID(Integer ID)
     {
-        lastSpeaker = new Personne(personne);
+        lastSpeakerID = ID;
     }
     
     private static final void incrementeNbPersonne()
@@ -484,14 +484,14 @@ public class Personne
     
     private final void parler(Object identite, Object texte)
     {
-        if(getLastSpeaker() == null || !getLastSpeaker().getID().equals(this.getID()))
+        if(getLastSpeakerID() == null || !getLastSpeakerID().equals(this.getID()))
         {
             System.out.println(identite.toString() + " :");
         }
         
         System.out.println("\t" + texte.toString());
         
-        setLastSpeaker(new Personne(this));
+        setLastSpeakerID(getID());
     }
     
     @Override
