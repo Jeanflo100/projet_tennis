@@ -168,6 +168,7 @@ public final class Joueur extends Personne
     public final void changementTenue()
     {
         parler("Je change de tenue !");
+        wait(3000);
     }
     
     @Override

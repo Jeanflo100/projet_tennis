@@ -110,7 +110,7 @@ public final class Match
     }
     
     
-    public final void jouer()
+    public final void jouer() throws InterruptedException
     {
         Boolean serviceJ1 = Math.random() < 0.5;                                                                        // Tirage au sort
         Integer nbSet = 0;                                                                                              // index pour remplir le tableau de score des sets
@@ -125,6 +125,11 @@ public final class Match
             {
                 getArbitre().parler("Jeu, Set " + set.getGagnant().getNom());
                 getArbitre().parler("Score Septs : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
+            }
+            if(Math.random()<0.1)
+            {
+                Joueur celuiQuiChangeDeTenue = Math.random() < 0.5 ? getJoueur1() : getJoueur2();
+                celuiQuiChangeDeTenue.changementTenue();
             }
         }
         
