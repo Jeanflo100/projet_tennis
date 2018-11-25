@@ -46,6 +46,7 @@ public class Jeu
         {
             Scanner sc = new Scanner(System.in);
             echange(sc.nextInt());
+            arbitre.parler(this);
         }
         return score.get(1).get().equals(PointsEnum.JEU);
     }
@@ -63,7 +64,6 @@ public class Jeu
             arbitre.parler("Point : " + receveur.getNom());
             Score.incremente(score, 2);
         }
-        arbitre.parler(this);
     }
     
     public final void echange(Integer nombre)
@@ -78,7 +78,6 @@ public class Jeu
             arbitre.parler("Point : " + receveur.getNom());
             Score.incremente(score, 2);
         }
-        arbitre.parler(this);
     }
     
     @Override
