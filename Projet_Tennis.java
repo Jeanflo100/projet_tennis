@@ -45,7 +45,7 @@ public class Projet_Tennis
             System.out.println("Souhaitez-vous en créer un ou les faire aléatoirement ? (o/n)");
             Scanner sc = new Scanner(System.in);
             String reponse = sc.nextLine();
-            if (reponse == "o"){
+            if (reponse.equals("o")){
                 System.out.println("5");
             }
             else {

@@ -5,6 +5,8 @@
  */
 package projet_tennis;
 
+import java.util.Scanner;
+
 /**
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
@@ -18,28 +20,17 @@ public final class Tie_Break
     
     public Tie_Break(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
     {
-        joueur1 = new Joueur(joueur1);
-        joueur2 = new Joueur(joueur2);
-        this.arbitre = arbitre;
-    }
-    
-    public final void setEgalite(Boolean valeur)
-    {
-        egalite = valeur;
-    }
-    
-    public final Boolean getEgalite()
-    {
-        return egalite;
+        this.joueur1 = new Joueur(joueur1);
+        this.joueur2 = new Joueur(joueur2);
+        this.arbitre = new Arbitre(arbitre);
     }
     
     public final void jouer()
     {
-        setEgalite(false);
-        arbitre.ennoncerServeur(serveur);
+        arbitre.ennoncerServeur(joueur1);
         System.out.println();
         arbitre.parler(this);
-        while(!score.get(1).get().equals(PointsEnum.JEU) && !score.get(2).get().equals(PointsEnum.JEU))
+        while(!score.get(1).equals(PointsEnum.JEU) && !score.get(2).equals(PointsEnum.JEU))
         {
             Scanner sc = new Scanner(System.in);
             echange(sc.nextInt());
@@ -77,35 +68,9 @@ public final class Tie_Break
         arbitre.parler(this);
     }
     
+    @Override
     public final String toString()
-    {
-        String texte;
-        texte = score.toString();
-        
-        if((score.get(1).get().compareTo(PointsEnum.QUARANTE) == 0) && (score.get(2).get().compareTo(PointsEnum.QUARANTE) == 0))
-        {
-            texte = getEgalite() ? "Égalité" : PointsEnum.QUARANTE.toString() + " A";
-            setEgalite(true);
-        }
-        
-        if(score.get(1).get().compareTo(PointsEnum.AVANTAGE) == 0)
-        {
-            texte = score.get(1).get().toString() + " " + serveur.getNom();
-        }
-        else if(score.get(2).get().compareTo(PointsEnum.AVANTAGE) == 0)
-        {
-            texte = score.get(2).get().toString() + " " + receveur.getNom();
-        }
-        
-        if(score.get(1).get().compareTo(PointsEnum.JEU) == 0)
-        {
-            texte = score.get(1).get().toString() + " " + serveur.getNom();
-        }
-        else if(score.get(2).get().compareTo(PointsEnum.JEU) == 0)
-        {
-            texte = score.get(2).get().toString() + " " + receveur.getNom();
-        }
-        
-        return texte;
+    {        
+        return score.toString();
     }
 }
