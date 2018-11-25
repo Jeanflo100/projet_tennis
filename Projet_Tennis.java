@@ -37,6 +37,11 @@ public class Projet_Tennis
         Joueur joueur2 = new Joueur();
         Arbitre arbitre = new Arbitre();
         
+        System.out.println(joueur1);
+        System.out.println(joueur2);
+        System.out.println(arbitre);
+        System.out.println();
+        
         Match test = new Match(joueur1, joueur2, arbitre, TournoisEnum.AU);
         test.jouer();
         

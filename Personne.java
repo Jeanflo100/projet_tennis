@@ -97,13 +97,12 @@ public class Personne
     
     public Personne(Personne personne)
     {
-        incrementeNbPersonne();
         ID = personne.getID();
         genre = personne.getGenre();
         
         prenom = personne.getPrenom();
         nomNaissance = personne.getNomNaissance();
-        setNomCourant(personne.getNomCourant());
+        copieNomCourant(personne.getNomCourant());
         
         dateNaissance = personne.getDateNaissance();
         lieuNaissance = personne.getLieuNaissance();
@@ -233,6 +232,11 @@ public class Personne
         {
             this.nomCourant = nom;
         }
+    }
+    
+    public final void copieNomCourant(String nom)
+    {
+        nomCourant = nom;
     }
     
     public final void setNom(String nom)

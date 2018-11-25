@@ -114,7 +114,12 @@ public final class Jeu
         while(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
         {
             Scanner sc = new Scanner(System.in);
-            echange(sc.nextInt());
+            String saisie;
+            do
+            {                
+                saisie = sc.nextLine();
+            } while (!saisie.equals("0") && !saisie.equals("1"));
+            echange(Integer.parseInt(saisie));
             if(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
             {
                 getArbitre().parler(this);
@@ -138,12 +143,12 @@ public final class Jeu
         final Float alea = (float) Math.random();
         if (alea < 0.5)
         {
-            getArbitre().parler("Point : " + getServeur().getNom());
+            getArbitre().parler("Point " + getServeur().getNom());
             Score.incremente(score, 1);
         }
         else
         {
-            getArbitre().parler("Point : " + getReceveur().getNom());
+            getArbitre().parler("Point " + getReceveur().getNom());
             Score.incremente(score, 2);
         }
     }
@@ -152,12 +157,12 @@ public final class Jeu
     {
         if (nombre == 1)
         {
-            getArbitre().parler("Point : " + getServeur().getNom());
+            getArbitre().parler("Point " + getServeur().getNom());
             Score.incremente(score, 1);
         }
         else
         {
-            getArbitre().parler("Point : " + getReceveur().getNom());
+            getArbitre().parler("Point " + getReceveur().getNom());
             Score.incremente(score, 2);
         }
     }

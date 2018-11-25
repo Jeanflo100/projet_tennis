@@ -121,6 +121,11 @@ public final class Match
             serviceJ1 = (getScoresSet()[nbSet].get(1) + getScoresSet()[nbSet].get(2))%2 == 0 ? serviceJ1 : !serviceJ1;  // Si le nombre de set joué est pair, le même joueur servira en premier au prochain set. Si le nombre de set jouer est impair, le serveur change
             Score.incremente(score, getScoresSet()[nbSet].get(1) > getScoresSet()[nbSet].get(2) ? 1 : 2);               // Si le joueur1 a gagné, on incrément son nombre de set gagné. sinon, on incrément le nombre de set gagné du joueur 2
             nbSet++;                                                                                                    // On passe à l'index du set suivant dans le tableau de score des sets
+            if(getScore(1).compareTo(3) < 0 && getScore(2).compareTo(3) < 0) 
+            {
+                getArbitre().parler("Jeu, Set " + set.getGagnant().getNom());
+                getArbitre().parler("Score Septs : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
+            }
         }
         
         if(nbSet == 4)                                                                                                  // Si ils en sont au dernier set, même procédé, mais avec un set qui prend en compte les différentes règles suivant les tournois
@@ -139,7 +144,7 @@ public final class Match
             setResultat(getJoueur2(), getJoueur1());
         }
         
-        getArbitre().parler("Match " + getGagnant().getNom());                                                            // L'arbitre indique le vainqueur.
+        getArbitre().parler("Jeu, Set, et Match " + getGagnant().getNom());                                             // L'arbitre indique le vainqueur.
         getGagnant().setPoints(Integer.max(1, Math.abs(getGagnant().getRang() - getPerdant().getRang())));
         getPerdant().setPoints(Integer.min(-1, -Math.abs(getGagnant().getRang() - getPerdant().getRang())));
     }

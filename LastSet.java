@@ -35,6 +35,11 @@ public class LastSet extends Set
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
                     setServiceJ1(!getServiceJ1());
+                    if((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
+                    {
+                        getArbitre().parler("Jeu " + jeu.getGagnant().getNom());
+                        getArbitre().parler("Score Jeux : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
+                    }
                 }
                 break;
             case RG:
@@ -43,6 +48,11 @@ public class LastSet extends Set
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
                     setServiceJ1(!getServiceJ1());
+                    if((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
+                    {
+                        getArbitre().parler("Jeu " + jeu.getGagnant().getNom());
+                        getArbitre().parler("Score Jeux : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
+                    }
                 }
                 break;
             case W:
@@ -51,6 +61,11 @@ public class LastSet extends Set
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
                     setServiceJ1(!getServiceJ1());
+                    if((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
+                    {
+                        getArbitre().parler("Jeu " + jeu.getGagnant().getNom());
+                        getArbitre().parler("Score Jeux : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
+                    }
                 }
                 if(getScore(1).equals(getScore(2)))
                 {
@@ -64,6 +79,11 @@ public class LastSet extends Set
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
                     setServiceJ1(!getServiceJ1());
+                    if((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
+                    {
+                        getArbitre().parler("Jeu " + jeu.getGagnant().getNom());
+                        getArbitre().parler("Score Jeux : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
+                    }
                 }
                 if(getScore(1).equals(getScore(2)))
                 {
