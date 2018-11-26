@@ -29,9 +29,9 @@ public final class Arbitre extends Personne
     {
         parler("Service : " + joueur.getNom());
     }
-    public final void signalerFaute(Joueur joueur)
+    public final void signalerFaute()
     {
-        parler("Faute de " + joueur.getNom());
+        
     }
     public final void repondAuJoueur()
     {
