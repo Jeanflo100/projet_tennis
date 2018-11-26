@@ -5,6 +5,8 @@
  */
 package projet_tennis;
 
+import java.util.Scanner;
+
 /**
  *
  * @author HUBERT Gilles, TASSART Jean-Florian
@@ -118,6 +120,18 @@ public final class Match
     
     public final Joueur jouer() throws InterruptedException
     {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Voulez-vous passer le match : " + getJoueur1().getNom() + " contre" + getJoueur2().getNom() + " ? (o/n");
+        String reponse;
+        do
+        {            
+            reponse = sc.nextLine();
+        } while (!reponse.toLowerCase().equals("o") && !reponse.toLowerCase().equals("n"));
+        if(reponse.toLowerCase().equals("o"))
+        {
+            return Math.random() < 0.5 ? getJoueur1() : getJoueur2();
+        }
+        
         Boolean serviceJ1 = Math.random() < 0.5;                                                                        // Tirage au sort
         Integer nbSet = 0;                                                                                              // index pour remplir le tableau de score des sets
         while((getScore(1).compareTo(3) < 0 && getScore(2).compareTo(3) < 0) && nbSet < 4)                              // Tant qu'aucun joueur n'a gagné 3 sets et qu'ils ne sont pas au dernier set possible

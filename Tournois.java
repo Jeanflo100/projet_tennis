@@ -5,7 +5,7 @@
  */
 package projet_tennis;
 
-import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  *
@@ -35,6 +35,19 @@ public class Tournois
     
     public final Joueur jouer() throws InterruptedException
     {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Voulez-vous passer le tournois : " + tournois + " " + participants128[0].getGenre() + " ? (o/n)");
+        String reponse;
+        do
+        {
+            System.err.println("Coucou");
+            reponse = sc.nextLine();
+        } while (!reponse.toLowerCase().equals("o") && !reponse.toLowerCase().equals("n"));
+        System.out.println("Coucou");
+        if(reponse.toLowerCase().equals("o"))
+        {
+            return participants128[(int)(Math.random() * participants128.length)];
+        }
         Match match;
         for(Integer i = 0; i < tableau.length; i++)
         {
@@ -46,6 +59,7 @@ public class Tournois
             {
                 match = new Match(tableau[i - 1][2 * j], tableau[i - 1][2 * j + 1], arbitres[(int)(Math.random() * arbitres.length)],tournois);
                 tableau[i][j] = match.jouer();
+                match.getArbitre().parler(match.getGagnant().getNom() + " a battu " + match.getPerdant().getNom());
             }
         }
         

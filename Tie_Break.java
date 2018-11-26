@@ -142,14 +142,13 @@ public final class Tie_Break
                 getArbitre().ennoncerServeur(getServeur());
                 System.out.println();
             }
-            /*Scanner sc = new Scanner(System.in);
+            Scanner sc = new Scanner(System.in);
             String saisie;
             do
             {                
                 saisie = sc.nextLine();
             } while (!saisie.equals("1") && !saisie.equals("2"));
-            echange(Integer.parseInt(saisie));*/
-            echange();
+            echange(Integer.parseInt(saisie));
             if((getScore(1).compareTo(7) < 0 && getScore(2).compareTo(7) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
             {
                 getArbitre().parler(this);
@@ -168,23 +167,13 @@ public final class Tie_Break
         return getScore(1).compareTo(getScore(2)) > 0;
     }
     
-    public final void echange()
-    {
-        final Float alea = (float) Math.random();
-        if (alea < 0.5)
-        {
-            getArbitre().parler("Point " + getJoueur1().getNom());
-            Score.incremente(score, 1);
-        }
-        else
-        {
-            getArbitre().parler("Point " + getJoueur2().getNom());
-            Score.incremente(score, 2);
-        }
-    }
-    
     public final void echange(Integer nombre)
     {
+        if(Math.random() < 0.05)
+        {
+            getArbitre().signalerFaute(nombre == 1 ? getJoueur1(): getJoueur2());
+            nombre = 3 - nombre;
+        }
         if (nombre == 1)
         {
             getArbitre().parler("Point " + getJoueur1().getNom());

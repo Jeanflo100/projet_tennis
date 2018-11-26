@@ -26,22 +26,32 @@ public class Projet_Tennis
     private static Integer nb_spectateurs = 0;
     private static Integer nb_spectateurs_total = 300;
     private static Spectateur[] spectateurs = new Spectateur[nb_spectateurs_total];
+    private static Joueur[] vainqueurs = new Joueur[8];
     
     public static void main(String[] args) throws InterruptedException
-    {        
-        // Jeanflo
-        
+    {
         creationPersonnages();
-        Tournois tournois = new Tournois(TournoisEnum.US, joueurs, arbitres);
-        Joueur vainqueur = tournois.jouer();
-        System.out.println(vainqueur);
-                
-                // Gillou
-                /*for(TournoisEnum tournois : TournoisEnum.values())
-                {
-                System.out.println(tournois);
-                }*/;
-        
+        Tournois tournois;
+
+        Integer index = 0;
+        for(TournoisEnum tournoiEnum : TournoisEnum.values())
+        {
+            tournois = new Tournois(tournoiEnum, joueurs, arbitres);
+            vainqueurs[index] = tournois.jouer();
+            index++;
+            
+            tournois = new Tournois(tournoiEnum, joueuses, arbitres);
+            vainqueurs[index] = tournois.jouer();
+            index++;
+        }
+        System.out.println("Les vainqueur des tournois sont :");
+        for (Joueur vainqueur : vainqueurs)
+        {
+            System.out.println(vainqueur.getNom() + " " + vainqueur.getPrenom() + " avec " + vainqueur.getPoints() + " points !");
+        }
+        System.out.println();
+        System.out.println("Le vainqueur de ce championnat du Grand Chelem est...");
+        System.out.println(Joueur.getClassement()[0].getNom() + " " + Joueur.getClassement()[0].getPrenom() + " avec " + Joueur.getClassement()[0] + " points !");
     }
     
     
