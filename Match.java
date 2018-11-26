@@ -116,7 +116,7 @@ public final class Match
     }
     
     
-    public final void jouer() throws InterruptedException
+    public final Joueur jouer() throws InterruptedException
     {
         Boolean serviceJ1 = Math.random() < 0.5;                                                                        // Tirage au sort
         Integer nbSet = 0;                                                                                              // index pour remplir le tableau de score des sets
@@ -159,6 +159,7 @@ public final class Match
         getArbitre().parler(this);
         getGagnant().setPoints(Integer.max(1, Math.abs(getGagnant().getRang() - getPerdant().getRang())));              // Enfin, on donne et on retire des points à chaque joueur pour faire évoluer le classement
         getPerdant().setPoints(Integer.min(-1, -Math.abs(getGagnant().getRang() - getPerdant().getRang())));
+        return getGagnant();
     }
     
     
