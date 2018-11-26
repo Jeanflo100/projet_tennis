@@ -51,7 +51,7 @@ public class Projet_Tennis
         }
         System.out.println();
         System.out.println("Le vainqueur de ce championnat du Grand Chelem est...");
-        System.out.println(Joueur.getClassement()[0].getNom() + " " + Joueur.getClassement()[0].getPrenom() + " avec " + Joueur.getClassement()[0] + " points !");
+        System.out.println(Joueur.getClassement()[0].getNom() + " " + Joueur.getClassement()[0].getPrenom() + " avec " + Joueur.getClassement()[0].getPoints() + " points !");
     }
     
     
@@ -114,6 +114,7 @@ public class Projet_Tennis
         System.out.println("Finissons avec la création des spectateurs !");
         System.out.print("Souhaitez-vous en créer un ou les faire aléatoirement ? (o/n) : ");
         sc = new Scanner(System.in);
+        reponse = sc.nextLine();
         while (reponse.equals("o") && (nb_spectateurs < nb_spectateurs_total)){     // Création personnalisée
             creationPersonnagePersonnalise("spectateur", null);
             System.out.print("Souhaitez-vous créer un autre spectateur personnalisé ? (o/n) : ");

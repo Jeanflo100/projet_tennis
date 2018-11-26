@@ -170,10 +170,13 @@ public final class Joueur extends Personne
         return getClassement().length;
     }
     
-    public final void changementTenue() throws InterruptedException
+    public final void changementTenue(Boolean passe) throws InterruptedException
     {
         parler("Attendez ! Je dois changer de tenue !");
-        Thread.sleep(3000);
+        if(!passe)
+        {
+            Thread.sleep(3000);
+        }
         parler("C'est bon, merci !");
     }
     

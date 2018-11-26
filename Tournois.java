@@ -40,13 +40,12 @@ public class Tournois
         String reponse;
         do
         {
-            System.err.println("Coucou");
             reponse = sc.nextLine();
         } while (!reponse.toLowerCase().equals("o") && !reponse.toLowerCase().equals("n"));
-        System.out.println("Coucou");
+        Boolean passe = false;
         if(reponse.toLowerCase().equals("o"))
         {
-            return participants128[(int)(Math.random() * participants128.length)];
+            passe = true;
         }
         Match match;
         for(Integer i = 0; i < tableau.length; i++)
@@ -57,13 +56,14 @@ public class Tournois
             }
             for (Integer j = 0; j < tableau[i].length; j++)
             {
-                match = new Match(tableau[i - 1][2 * j], tableau[i - 1][2 * j + 1], arbitres[(int)(Math.random() * arbitres.length)],tournois);
+                match = new Match(new Joueur(tableau[i - 1][2 * j]), new Joueur(tableau[i - 1][2 * j + 1]), new Arbitre(arbitres[(int)(Math.random() * arbitres.length)]),tournois, passe);
                 tableau[i][j] = match.jouer();
                 match.getArbitre().parler(match.getGagnant().getNom() + " a battu " + match.getPerdant().getNom());
             }
         }
         
-        Match finale = new Match(participants2[0], participants2[1], arbitres[(int)(Math.random() * arbitres.length)], tournois);
+        Match finale = new Match(new Joueur(participants2[0]), new Joueur(participants2[1]), new Arbitre(arbitres[(int)(Math.random() * arbitres.length)]), tournois, passe);
+        finale.getArbitre().parler(finale.getGagnant().getNom() + " a battu " + finale.getPerdant().getNom());
         return finale.jouer();
     }
 }

@@ -22,14 +22,16 @@ public final class Tie_Break
     private Boolean fini = false;
     private Joueur gagnant;
     private Joueur perdant;
+    private Boolean passe;
     
-    public Tie_Break(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
+    public Tie_Break(Joueur joueur1, Joueur joueur2, Arbitre arbitre, Boolean passe)
     {
         this.joueur1 = new Joueur(joueur1);
         this.joueur2 = new Joueur(joueur2);
         this.arbitre = new Arbitre(arbitre);
         serveur = new Joueur(joueur1);
         receveur = new Joueur(joueur2);
+        this.passe = passe;
     }
     
     
@@ -142,13 +144,22 @@ public final class Tie_Break
                 getArbitre().ennoncerServeur(getServeur());
                 System.out.println();
             }
-            Scanner sc = new Scanner(System.in);
-            String saisie;
-            do
-            {                
-                saisie = sc.nextLine();
-            } while (!saisie.equals("1") && !saisie.equals("2"));
-            echange(Integer.parseInt(saisie));
+            
+            if(passe)
+            {
+                echange();
+            }
+            else
+            {
+                Scanner sc = new Scanner(System.in);
+                String saisie;
+                do
+                {                
+                    saisie = sc.nextLine();
+                } while (!saisie.equals("1") && !saisie.equals("2"));
+                echange(Integer.parseInt(saisie));
+            }
+            
             if((getScore(1).compareTo(7) < 0 && getScore(2).compareTo(7) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
             {
                 getArbitre().parler(this);
@@ -165,6 +176,21 @@ public final class Tie_Break
         }
         
         return getScore(1).compareTo(getScore(2)) > 0;
+    }
+    
+    public final void echange()
+    {
+        final Float alea = (float) Math.random();
+        if (alea < 0.5)
+        {
+            getArbitre().parler("Point " + getServeur().getNom());
+            Score.incremente(score, 1);
+        }
+        else
+        {
+            getArbitre().parler("Point " + getReceveur().getNom());
+            Score.incremente(score, 2);
+        }
     }
     
     public final void echange(Integer nombre)

@@ -21,12 +21,14 @@ public final class Jeu
     private Boolean fini = false;
     private Joueur gagnant;
     private Joueur perdant;
+    private Boolean passe;
     
-    public Jeu(Joueur joueur1, Joueur joueur2, Arbitre arbitre)
+    public Jeu(Joueur joueur1, Joueur joueur2, Arbitre arbitre, Boolean passe)
     {
         serveur = new Joueur(joueur1);
         receveur = new Joueur(joueur2);
         this.arbitre = new Arbitre(arbitre);
+        this.passe = passe;
     }
     
     
@@ -119,13 +121,20 @@ public final class Jeu
         getArbitre().parler(this);
         while(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
         {
-            Scanner sc = new Scanner(System.in);
-            String saisie;
-            do
-            {                
-                saisie = sc.nextLine();
-            } while (!saisie.equals("0") && !saisie.equals("1"));
-            echange(Integer.parseInt(saisie));
+            if(passe)
+            {
+                echange();
+            }
+            else
+            {
+                Scanner sc = new Scanner(System.in);
+                String saisie;
+                do
+                {                
+                    saisie = sc.nextLine();
+                } while (!saisie.equals("1") && !saisie.equals("2"));
+                echange(Integer.parseInt(saisie));
+            }
             if(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
             {
                 getArbitre().parler(this);
@@ -142,6 +151,21 @@ public final class Jeu
         }
         
         return getScore(1).equals(PointsEnum.JEU);
+    }
+    
+    public final void echange()
+    {
+        final Float alea = (float) Math.random();
+        if (alea < 0.5)
+        {
+            getArbitre().parler("Point " + getServeur().getNom());
+            Score.incremente(score, 1);
+        }
+        else
+        {
+            getArbitre().parler("Point " + getReceveur().getNom());
+            Score.incremente(score, 2);
+        }
     }
     
     public final void echange(Integer nombre)
