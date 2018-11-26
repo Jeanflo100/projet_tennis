@@ -133,12 +133,52 @@ public class Projet_Tennis
             nomNaissance = nomCourant;
         }
         System.out.println("Sa date de naissance :");
-        System.out.print("--> Jour : ");
-        Integer jour = sc.nextInt();
-        System.out.print("--> Mois : ");
-        Integer mois = sc.nextInt();
         System.out.print("--> Année : ");
-        Integer annee = sc.nextInt();
+        Integer annee = null;
+        while (annee == null) {
+            try {
+                annee = sc.nextInt();
+                if (annee < 1970 || annee > 2000){
+                    System.out.print("Veuillez entrer une année comprise entre 1970 et 2000 pour avoir des joueurs pouvant réellement jouer : ");
+                    annee = null;
+                }
+            }catch(Exception e){
+                System.err.print("Veuillez entrez une année en chiffre : ");
+            }
+        }
+        System.out.print("--> Mois : ");
+        Integer mois = null;
+        while (mois == null) {
+            try {
+                mois = sc.nextInt();
+                if (mois < 0 || mois > 12){
+                    System.out.print("Veuillez entrer une année comprise entre 1 et 12 : ");
+                    mois = null;
+                }
+            }catch(Exception e){
+                System.out.println("Veuillez entrez un mois en chiffre");
+            }
+        }
+        System.out.print("--> Jour : ");
+        Integer jour = null;
+        while (jour == null) {
+            try {
+                jour = sc.nextInt();
+                switch (mois){
+                    case 2 : if (jour < 0 || jour > 28){
+                                System.out.print("Veuillez entrer un jour comprise entre 1 et 28 : ");
+                                jour = null;
+                            }
+                            break;
+                    default : if (jour < 0 || jour > 31){
+                                System.out.print("Veuillez entrer un jour comprise entre 1 et 31 : ");
+                                jour = null;
+                            }
+                }
+            }catch(Exception e){
+                System.out.println("Veuillez entrez un jour en chiffre");
+            }
+        }
         Date dateNaissance = new Date(jour, mois, annee);
         System.out.print("Son lieu de naissance (ville) : ");
         buff = sc.nextLine();
@@ -146,9 +186,31 @@ public class Projet_Tennis
         System.out.print("Sa nationalité (en anglais) : ");
         String nationalite = sc.nextLine();
         System.out.print("Sa taille (en cm) : ");
-        Float taille = sc.nextFloat();
+        Float taille = null;
+        while (taille == null) {
+            try {
+                taille = sc.nextFloat();
+                if (taille < 150 || taille > 250){
+                    System.out.print("Veuillez entrer une taille comprise entre 150 et 250 : ");
+                    taille = null;
+                }
+            }catch(Exception e){
+                System.out.println("Veuillez entrez une taille en chiffre");
+            }
+        }
         System.out.print("Son poids (en kg) : ");
-        Float poids = sc.nextFloat();
+        Float poids = null;
+        while (poids == null) {
+            try {
+                poids = sc.nextFloat();
+                if (poids < 50 || poids > 100){
+                    System.out.print("Veuillez entrer une taille comprise entre 50 et 100 : ");
+                    poids = null;
+                }
+            }catch(Exception e){
+                System.out.println("Veuillez entrez un poids en chiffre");
+            }
+        }
         Couleur couleur = null;
         if (type != "arbitre"){
             switch (type){
