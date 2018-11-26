@@ -164,7 +164,8 @@ public final class Jeu
     {
         if(Math.random() < 0.05)
         {
-            
+            getArbitre().signalerFaute(nombre == 1 ? getServeur() : getReceveur());
+            nombre = 3 - nombre;
         }
         if(nombre == 1)
         {

@@ -185,6 +185,11 @@ public final class Tie_Break
     
     public final void echange(Integer nombre)
     {
+        if(Math.random() < 0.05)
+        {
+            getArbitre().signalerFaute(nombre == 1 ? getJoueur1(): getJoueur2());
+            nombre = 3 - nombre;
+        }
         if (nombre == 1)
         {
             getArbitre().parler("Point " + getJoueur1().getNom());
