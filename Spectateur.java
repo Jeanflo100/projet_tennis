@@ -16,6 +16,10 @@ public final class Spectateur extends Personne
         super();
     }
     
+    public Spectateur(Genre genre, String prenom, String nomCourant, String nomNaissance, Date dateNaissance, String lieuNaissance, String nationalite, Float taille, Float poids, Couleur couleur){
+        super(genre, prenom, nomCourant, nomNaissance, dateNaissance, lieuNaissance, nationalite, taille, poids, couleur);
+    }
+    
     public void applaudir(){
         System.out.println("CLAP ! CLAP ! CLAP !");
     }

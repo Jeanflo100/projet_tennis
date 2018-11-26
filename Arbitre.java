@@ -16,6 +16,10 @@ public final class Arbitre extends Personne
         super();
     }
     
+    public Arbitre(Genre genre, String prenom, String nomCourant, String nomNaissance, Date dateNaissance, String lieuNaissance, String nationalite, Float taille, Float poids){
+        super(genre, prenom, nomCourant, nomNaissance, dateNaissance, lieuNaissance, nationalite, taille, poids, null);
+    }
+    
     public Arbitre(Arbitre arbitre)
     {
         super(arbitre);
