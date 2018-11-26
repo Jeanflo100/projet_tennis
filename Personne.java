@@ -234,7 +234,7 @@ public abstract class Personne
         }
     }
     
-    public final void copieNomCourant(String nom)
+    public final void copieNomCourant(String nom)       // Pour éviter la probabilité de 15% qu'une femme se marie quand on veut la copier
     {
         nomCourant = nom;
     }
@@ -477,16 +477,11 @@ public abstract class Personne
         setPoids(getPoids() - difference);
     }
     
-    public void parler(Object texte)
+    public final void parler(Object texte)
     {
-        parler(this, texte);
-    }
-    
-    private final void parler(Object identite, Object texte)
-    {
-        if(getLastSpeakerID() == null || !getLastSpeakerID().equals(this.getID()))
+        if(getLastSpeakerID() == null || !getLastSpeakerID().equals(this.getID()))      // Si c'est la même personne qui parle, on ne l'annonce pas une nouvelle fois
         {
-            System.out.println(identite.toString() + " :");
+            System.out.println(this + " :");
         }
         
         System.out.println("\t" + texte.toString());

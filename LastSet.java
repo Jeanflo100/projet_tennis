@@ -30,7 +30,7 @@ public class LastSet extends Set
         switch(getTournois())
         {
             case AU:
-                while((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
+                while((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))              // Open d'Australie : pas de Tie Break dans le dernier set. L'un des deux joueurs doit gagner en gagnant 6 jeux et avoir au moins 2 jeu d'avance sur l'adversaire
                 {
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
@@ -43,7 +43,7 @@ public class LastSet extends Set
                 }
                 break;
             case RG:
-                while((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
+                while((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))              // Roland Garros : Même chose que l'Open d'australie
                 {
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
@@ -56,7 +56,7 @@ public class LastSet extends Set
                 }
                 break;
             case W:
-                while(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(12) && getScore(2).equals(12)))
+                while(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(12) && getScore(2).equals(12))) // Wimbledon : Tie Break uniquement lorsque les joueurs sont arrivé à 12 jeux chacun
                 {
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
@@ -74,7 +74,7 @@ public class LastSet extends Set
                 }
                 break;
             case US:
-                while(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(6) && getScore(2).equals(6)))
+                while(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(6) && getScore(2).equals(6)))   // US Open : Set normale
                 {
                     Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
                     Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);

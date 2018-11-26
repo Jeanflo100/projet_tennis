@@ -113,18 +113,18 @@ public class Set
     
     public Score<Integer> jouer()
     {
-        while(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(6) && getScore(2).equals(6)))
+        while(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(6) && getScore(2).equals(6)))       // Tant qu'aucun joueur n'a remporté le set...
         {
-            Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());
-            Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);
-            setServiceJ1(!getServiceJ1());
-            if(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(6) && getScore(2).equals(6)))
+            Jeu jeu = getServiceJ1() ? new Jeu(getJoueur1(), getJoueur2(), getArbitre()) : new Jeu(getJoueur2(), getJoueur1(), getArbitre());                                           // Création d'un nouveau jeu en donnant en permier joueur celui qui doit servir
+            Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);                                                                                                             // On joue le jeu et on incrément le score en conséquence
+            setServiceJ1(!getServiceJ1());                                                                                                                                              // Changement de serveur entre 2 jeux
+            if(((getScore(1).compareTo(6) < 0 && getScore(2).compareTo(6) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2)) && !(getScore(1).equals(6) && getScore(2).equals(6)))      // Si un auter jeu doit suivre, alors l'arbitre indique quel joueur vient de gagner le jeu , puis il rappel le nombre de jeu gagné pour chacun des joueurs dans ce set 
             {
                 getArbitre().parler("Jeu " + jeu.getGagnant().getNom());
                 getArbitre().parler("Score Jeux : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
             }
         }
-        if(getScore(1).equals(getScore(2)))
+        if(getScore(1).equals(getScore(2)))     // Tie Break
         {
             Tie_Break jeu = getServiceJ1() ? new Tie_Break(getJoueur1(), getJoueur2(), getArbitre()) : new Tie_Break(getJoueur2(), getJoueur1(), getArbitre());
             Score.incremente(score, jeu.jouer() == getServiceJ1() ? 1 : 2);

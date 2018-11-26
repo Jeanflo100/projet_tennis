@@ -137,6 +137,11 @@ public final class Joueur extends Personne
         return entraineur;
     }
     
+    /**
+     * Le rang d'un(e) joueur/se donne une idée du nombre de joueurs qui ont strictement plus de points. rang 1 -> personne n'est strictement meilleur / rang 5 -> 4 personnes sont strictement meilleures
+     * Si 2 joueurs sont ex aequo alors ils ont le même rends, mais personne n'est au rang suivant
+     * @return
+     */
     public final Integer getRang()
     {
         Integer index = 0;
@@ -168,7 +173,7 @@ public final class Joueur extends Personne
     public final void changementTenue() throws InterruptedException
     {
         parler("Attendez ! Je dois changer de tenue !");
-        wait(3000);
+        Thread.sleep(3000);
         parler("C'est bon, merci !");
     }
     

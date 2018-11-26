@@ -142,13 +142,14 @@ public final class Tie_Break
                 getArbitre().ennoncerServeur(getServeur());
                 System.out.println();
             }
-            Scanner sc = new Scanner(System.in);
+            /*Scanner sc = new Scanner(System.in);
             String saisie;
             do
             {                
                 saisie = sc.nextLine();
             } while (!saisie.equals("1") && !saisie.equals("2"));
-            echange(Integer.parseInt(saisie));
+            echange(Integer.parseInt(saisie));*/
+            echange();
             if((getScore(1).compareTo(7) < 0 && getScore(2).compareTo(7) < 0) || (Math.abs(getScore(1) - getScore(2)) < 2))
             {
                 getArbitre().parler(this);

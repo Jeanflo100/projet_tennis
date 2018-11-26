@@ -127,15 +127,15 @@ public final class Match
             serviceJ1 = (getScoresSet()[nbSet].get(1) + getScoresSet()[nbSet].get(2))%2 == 0 ? serviceJ1 : !serviceJ1;  // Si le nombre de set joué est pair, le même joueur servira en premier au prochain set. Si le nombre de set jouer est impair, le serveur change
             Score.incremente(score, getScoresSet()[nbSet].get(1) > getScoresSet()[nbSet].get(2) ? 1 : 2);               // Si le joueur1 a gagné, on incrément son nombre de set gagné. sinon, on incrément le nombre de set gagné du joueur 2
             nbSet++;                                                                                                    // On passe à l'index du set suivant dans le tableau de score des sets
-            if(getScore(1).compareTo(3) < 0 && getScore(2).compareTo(3) < 0) 
+            if(getScore(1).compareTo(3) < 0 && getScore(2).compareTo(3) < 0)                                            // Si un auter set doit suivre, alors l'arbitre indique quel joueur vient de gagner le jeu et le set, puis il rappel le nombre de set gagné pour chacun des joueurs 
             {
                 getArbitre().parler("Jeu, Set " + set.getGagnant().getNom());
                 getArbitre().parler("Score Septs : " + getJoueur1().getNom() + " " + getScore(1) + " - " + getScore(2) + " " + getJoueur2().getNom());
-            }
-            if(Math.random()<0.1)
-            {
-                Joueur celuiQuiChangeDeTenue = Math.random() < 0.5 ? getJoueur1() : getJoueur2();
-                celuiQuiChangeDeTenue.changementTenue();
+                if(Math.random()<0.1)                                                                                   // 10% de chance qu'un des deux joueurs change de tenue à la fin d'un set
+                {
+                    Joueur celuiQuiChangeDeTenue = Math.random() < 0.5 ? getJoueur1() : getJoueur2();
+                    celuiQuiChangeDeTenue.changementTenue();
+                }
             }
         }
         
@@ -155,9 +155,9 @@ public final class Match
             setResultat(getJoueur2(), getJoueur1());
         }
         
-        getArbitre().parler("Jeu, Set, et Match " + getGagnant().getNom());                                             // L'arbitre indique le vainqueur.
+        getArbitre().parler("Jeu, Set, et Match " + getGagnant().getNom());                                             // L'arbitre indique le vainqueur puis rappelles les jeux gagné dans chaque sets
         getArbitre().parler(this);
-        getGagnant().setPoints(Integer.max(1, Math.abs(getGagnant().getRang() - getPerdant().getRang())));
+        getGagnant().setPoints(Integer.max(1, Math.abs(getGagnant().getRang() - getPerdant().getRang())));              // Enfin, on donne et on retire des points à chaque joueur pour faire évoluer le classement
         getPerdant().setPoints(Integer.min(-1, -Math.abs(getGagnant().getRang() - getPerdant().getRang())));
     }
     
@@ -169,7 +169,7 @@ public final class Match
         {
             return "Le match n'a pas encore été joué.";
         }
-        String string = "";
+        String string = "\n";
         final Integer lettreNom = Integer.max(getJoueur1().getNom().length(), getJoueur2().getNom().length());
         
         for(Integer i = 1; i <= 2; i++)                                                                                 // Pour chacun des deux joueurs

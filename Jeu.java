@@ -119,13 +119,14 @@ public final class Jeu
         getArbitre().parler(this);
         while(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
         {
-            Scanner sc = new Scanner(System.in);
+            /*Scanner sc = new Scanner(System.in);
             String saisie;
             do
             {                
                 saisie = sc.nextLine();
             } while (!saisie.equals("0") && !saisie.equals("1"));
-            echange(Integer.parseInt(saisie));
+            echange(Integer.parseInt(saisie));*/
+            echange();
             if(!getScore(1).equals(PointsEnum.JEU) && !getScore(2).equals(PointsEnum.JEU))
             {
                 getArbitre().parler(this);
@@ -161,7 +162,11 @@ public final class Jeu
     
     public final void echange(Integer nombre)
     {
-        if (nombre == 1)
+        if(Math.random() < 0.05)
+        {
+            
+        }
+        if(nombre == 1)
         {
             getArbitre().parler("Point " + getServeur().getNom());
             Score.incremente(score, 1);
