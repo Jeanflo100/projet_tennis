@@ -44,63 +44,72 @@ public class Projet_Tennis
         
     }
     
+    
+    /**
+     * Phase d'échange avec l'utilisateur pour la création personnalisée ou aléatoire des personnages
+     */
     private static final void creationPersonnages(){
         System.out.println("Bonjour et bienvenue dans le Championnat de Tennis du \"Grand Chelem\"");
+        
+        // Création des joueurs pour le tournoi masculin
         System.out.println("Commençons tout d'abord par créer les joueurs du tournoi masculin");
         System.out.print("Souhaitez-vous en créer un ou les faire aléatoirement ? (o/n) : ");
         Scanner sc = new Scanner(System.in);
         String reponse = sc.nextLine();
-        while (reponse.equals("o") && (nb_joueurs < nb_joueurs_total)){
+        while (reponse.equals("o") && (nb_joueurs < nb_joueurs_total)){     // Création personnalisée
             creationPersonnagePersonnalise("joueur", Genre.Homme);
             System.out.print("Souhaitez-vous créer un autre joueur personnalisé ? (o/n) : ");
             reponse = sc.nextLine();
         }
-        for (int i = nb_joueurs; i<nb_joueurs_total; i++){
+        for (int i = nb_joueurs; i<nb_joueurs_total; i++){      // Création aléatoire
             joueurs[nb_joueurs] = new Joueur(Genre.Homme);
             nb_joueurs++;
         }
         System.out.println("Tous les joueurs ont été créé !");
         System.out.println("");
+        
+        // Création des joueuses pour le tournoi féminin
         System.out.println("Poursuivons avec la création des joueuses du tournoi féminin");
         System.out.print("Souhaitez-vous en créer une ou les faire aléatoirement ? (o/n) : ");
-        sc = new Scanner(System.in);
         reponse = sc.nextLine();
-        while (reponse.equals("o") && (nb_joueuses < nb_joueuses_total)){
+        while (reponse.equals("o") && (nb_joueuses < nb_joueuses_total)){     // Création personnalisée
             creationPersonnagePersonnalise("joueur", Genre.Femme);
             System.out.print("Souhaitez-vous créer une autre joueuse personnalisée ? (o/n) : ");
             reponse = sc.nextLine();
         }
-        for (int i = nb_joueuses; i<nb_joueuses_total; i++){
+        for (int i = nb_joueuses; i<nb_joueuses_total; i++){      // Création aléatoire
             joueuses[nb_joueuses] = new Joueur(Genre.Femme);
             nb_joueuses++;
         }
         System.out.println("Toutes les joueuses ont été créé !");
         System.out.println("");
+        
+        // Création des arbitres
         System.out.println("Créons maintenant quelques arbitres !");
         System.out.print("Souhaitez-vous en créer un ou les faire aléatoirement ? (o/n) : ");
-        sc = new Scanner(System.in);
         reponse = sc.nextLine();
-        while (reponse.equals("o") && (nb_arbitres < nb_arbitres_total)){
+        while (reponse.equals("o") && (nb_arbitres < nb_arbitres_total)){     // Création personnalisée
             creationPersonnagePersonnalise("arbitre", null);
-            System.out.print("Souhaitez-vous créer un autre arbitre personnalisée ? (o/n) : ");
+            System.out.print("Souhaitez-vous créer un autre arbitre personnalisé ? (o/n) : ");
             reponse = sc.nextLine();
         }
-        for (int i = nb_arbitres; i<nb_arbitres_total; i++){
+        for (int i = nb_arbitres; i<nb_arbitres_total; i++){      // Création aléatoire
             arbitres[nb_arbitres] = new Arbitre();
             nb_arbitres++;
         }
         System.out.println("Tous les arbitres ont été créé !");
         System.out.println("");
+        
+        // Création des spectateurs
         System.out.println("Finissons avec la création des spectateurs !");
         System.out.print("Souhaitez-vous en créer un ou les faire aléatoirement ? (o/n) : ");
         sc = new Scanner(System.in);
-        reponse = sc.nextLine();
-        while (reponse.equals("o") && (nb_spectateurs < nb_spectateurs_total)){
+        while (reponse.equals("o") && (nb_spectateurs < nb_spectateurs_total)){     // Création personnalisée
             creationPersonnagePersonnalise("spectateur", null);
-            System.out.print("Souhaitez-vous créer un autre spectateur personnalisée ? (o/n) : ");
+            System.out.print("Souhaitez-vous créer un autre spectateur personnalisé ? (o/n) : ");
             reponse = sc.nextLine();
         }
-        for (int i = nb_spectateurs; i<nb_spectateurs_total; i++){
+        for (int i = nb_spectateurs; i<nb_spectateurs_total; i++){      // Création aléatoire
             spectateurs[nb_spectateurs] = new Spectateur();
             nb_spectateurs++;
         }
@@ -108,8 +117,16 @@ public class Projet_Tennis
         System.out.println("");
     }
     
+    
+     /**
+     * Personnalisation des caractèristiques du type de personnage en question
+     * @param type Type du personnage pour permettre la personnalisation de certaines caractéristiques ou non selon si le personnage en question les a
+     * @param genre Connaître le genre du personnage s'il est choisi dès l'appel de la fonction (cas des joueurs/joueuses)
+     */
     private static final void creationPersonnagePersonnalise(String type, Genre genre){
         System.out.println("Phase de personnalisation, Veuillez entrer :");
+        
+        // Genre
         Scanner sc = new Scanner(System.in);
         if (genre == null){
             System.out.print("Son genre (homme ou femme) : ");
@@ -120,10 +137,14 @@ public class Projet_Tennis
             }
             genre = Genre.fromString(genre_str);
         }
+        
+        // Prénom et Nom courant
         System.out.print("Son prénom : ");
         String prenom = sc.nextLine();
         System.out.print("Son nom courant : ");
         String nomCourant = sc.nextLine();
+        
+        // Nom de naissance
         String nomNaissance = null;
         if (genre == Genre.Femme){
             System.out.print("Etant une femme, voulez-vous lui donner un nom de naissance différent ? (mettre 'n' pour garder le même nom, entrez le nouveau nom sinon) : ");
@@ -135,6 +156,8 @@ public class Projet_Tennis
         else {
             nomNaissance = nomCourant;
         }
+        
+        // Date de naissance
         System.out.println("Sa date de naissance :");
         System.out.print("--> Année : ");
         Integer annee = null;
@@ -183,11 +206,15 @@ public class Projet_Tennis
             }
         }
         Date dateNaissance = new Date(jour, mois, annee);
+        
+        // Lieu de naissance et nationalité
         System.out.print("Son lieu de naissance (ville) : ");
         buff = sc.nextLine();
         String lieuNaissance = sc.nextLine();
         System.out.print("Sa nationalité (en anglais) : ");
         String nationalite = sc.nextLine();
+        
+        // Taille et Poids
         System.out.print("Sa taille (en cm) : ");
         Float taille = null;
         while (taille == null) {
@@ -214,6 +241,8 @@ public class Projet_Tennis
                 System.out.println("Veuillez entrez un poids en chiffre");
             }
         }
+        
+        // Couleur de l'accessoire caractéristique et Main
         Couleur couleur = null;
         if (type != "arbitre"){
             switch (type){
@@ -238,6 +267,8 @@ public class Projet_Tennis
             }
             main = Main.fromString(main_str);
         }
+        
+        // Création du personnage
         switch (type){
             case "joueur" : switch (genre){
                                 case Homme :    joueurs[nb_joueurs] = new Joueur(genre, prenom, nomCourant, nomNaissance, dateNaissance, lieuNaissance, nationalite, taille, poids, couleur, main);
@@ -252,6 +283,7 @@ public class Projet_Tennis
             case "spectateur" : spectateurs[nb_spectateurs] =   new Spectateur(genre, prenom, nomCourant, nomNaissance, dateNaissance, lieuNaissance, nationalite, taille, poids, couleur);
                                                                 break;
         }
+        
         System.out.println("Phase de personnalisation réussi avec succès !");
         System.out.println("");
     }
