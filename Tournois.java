@@ -63,7 +63,9 @@ public class Tournois
         }
         
         Match finale = new Match(new Joueur(participants2[0]), new Joueur(participants2[1]), new Arbitre(arbitres[(int)(Math.random() * arbitres.length)]), tournois, passe);
+        finale.jouer(true);
         finale.getArbitre().parler(finale.getGagnant().getNom() + " a battu " + finale.getPerdant().getNom());
-        return finale.jouer();
+        System.out.println(finale.getGagnant().getPoints());
+        return finale.getGagnant();
     }
 }

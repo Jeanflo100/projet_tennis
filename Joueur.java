@@ -86,6 +86,22 @@ public final class Joueur extends Personne
         Arrays.sort(classement, new JoueurComparator());
     }
     
+    public final void setPoints(Integer points, Boolean oo)
+    {
+        Integer index = getRang() - 1;
+        this.points += points;
+        while(!getID().equals(classement[index].getID()))
+        {
+            index++;
+        }
+        System.out.println("////////////////////////////////////////");
+        System.out.println(this.getPoints());
+        System.out.println(classement[index].getPoints());
+        System.out.println("////////////////////////////////////////");
+        classement[index] = new Joueur(this);
+        Arrays.sort(classement, new JoueurComparator());
+    }
+    
     public final void setEntraineur(String nom)
     {
         this.entraineur = nom;
